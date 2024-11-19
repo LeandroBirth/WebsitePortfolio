@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leandro's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&family=Poppins:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Styles/styles.css">
+    
+
+</head>
+<body>
+    <header class="header header--fixed">
+        <!-- <div class="header__top-right">
+            <div class="header__language-selection">
+                <a href="#"><span role="img" aria-label="Brazil Flag">🇧🇷</span></a>
+                <a href="#"><span role="img" aria-label="Canada Flag">🇨🇦</span></a>                
+            </div>
+        </div> -->
+        <div class="header__bottom">
+            <div class="header__left">
+                <nav class="menu">
+                    <button id="aboutBtn" class="menu__btn">About Me</button>
+                    <div class="menu__dropdown">
+                        <button class="menu__btn">Portfolio</button>
+                        <div class="menu__dropdown-content">
+                            <a href="#" onclick="showPortfolio('backend')">
+                                <i class="fas fa-server"></i> Back-End
+                            </a>
+                            <a href="#" onclick="showPortfolio('frontend')">
+                                <i class="fas fa-code"></i> Front-End
+                            </a>
+                            <a href="#" onclick="showPortfolio('ux')">
+                                <i class="fas fa-paint-brush"></i> UX Design
+                            </a>
+                            <a href="#contact" onclick="showPortfolio('publications')">
+                                <i class="fas fa-chart-pie"></i> Publications
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="menu__dropdown">
+                        <button class="menu__btn">Contact</button>
+                        <div class="menu__dropdown-content">
+                            <a href="https://www.linkedin.com/in/leandro-nascimento-258747165/" target="_blank">
+                                <i class="fab fa-linkedin"></i> LinkedIn
+                            </a>
+                            <a href="https://github.com/LeandroBirth" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="https://instagram.com/weareleandro" target="_blank">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </a>
+                            <a href="javascript:void(0);" onclick="openContactSlide();">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                            </a>
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </nav>
+            </div>
+            <div class="header__center">
+                <span class="header__bold-name">Leandro Birth.</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <main id="content">
+            <div class="about">
+                <div class="about__photo">
+                    <img src="Styles/Profilephoto.jpeg" alt="Leandro's Photo">
+                </div>
+                <div class="about__description">
+                    <div id="aboutMe" class="about__slide about__slide--active">
+                        <h1 class="about__title1">About Me</h1>
+                        <p>"Hey there! I’m Leandro. I hold a bachelor's in Medical Physics. Throughout my degree, I learned to code in languages like Python, which opened my eyes to programming's power in solving real-world problems. I even published a scientific paper using R — pretty cool, right?"</p>
+                        <p>While my journey started in healthcare, I’ve always had a passion for languages—both spoken and programming. I discovered a perfect blend of creativity and logic in full-stack development, which fuels my passion for technology and my love for tackling challenges, prompting me to pivot my career toward programming.</p>
+                        <p>I’ve dedicated my time to learning UX design, front-end, and back-end development. I’m focused on creating engaging experiences, whether through beautiful interfaces or robust back-end functionality. I'm ready to bring my diverse skills and enthusiasm to a team that values innovation and collaboration.</p>
+                        <p>Let's build something amazing together!</p>
+                    </div>
+                    <div id="facts" class="about__slide">
+                        <h1 class="about__title2">Facts About Me:</h1>
+                        <p><strong class="about__strong">Linux Enthusiast –</strong> Using Linux as my primary OS for over two years, running it alongside macOS.</p>
+                        <p><strong class="about__strong">Speak Four Languages –</strong> English, Portuguese, Italian, and Brazilian Sign Language.</p>
+                        <p><strong class="about__strong">Award Winner –</strong> Won the Best City Comics Award for a project on nature conservation in grade 9.</p>
+                        <p><strong class="about__strong">Tennis Learner -</strong> Recently started learning tennis.</p>
+                    </div>
+                    <div id="contact" class="about__slide">   
+                        <h2 class="about__title3">Contact Information</h2>
+                        <p>There are several ways in which you can contact me:</p>
+                        <ul class="about__list-contact">
+                            <li class="about__item-contact">
+                                <i class="fas fa-envelope about__icon-contact"></i>
+                                <span>Email: </span>
+                                <a href="mailto:leandrobirth@proton.me" class="about__link-contact">Get Email</a>
+                            </li>
+                            
+                            <li class="about__item-contact">
+                                <i class="fab fa-github about__icon-contact"></i>
+                                <span>GitHub: </span><a href="www.github.com/LeandroBirth" target="_blank" class="about__link-contact">github.com/LeandroBirth</a>
+                            </li>
+                            <li class="about__item-contact">
+                                <i class="fab fa-linkedin about__icon-contact"></i>
+                                <span>LinkedIn: </span><a href="www.linkedin.com/in/leandro-nascimento-258747165/" target="_blank" class="about__link-contact">linkedin.com/in/leandro-nascimento-258747165</a>
+                            </li>
+                            
+                            <li class="about__item-contact">
+                                <i class="fab fa-instagram about__icon-contact"></i>
+                                <span>Instagram: </span><a href="www.instagram.com/weareleandro" target="_blank" class="about__link-contact">instagram.com/weareleandro</a>
+                            </li>
+                        </ul>
+                        
+                        
+                    </div>
+                    
+                    <div class="about__navigation">
+                        <span class="about__arrow" onclick="changeSlide(-1)">&#10094;</span>
+                        <span class="about__arrow" onclick="changeSlide(1)">&#10095;</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="Code/scriptPortfolio.js"></script>
+    <script src="Code/script.js"></script>
+    <script src="https://kit.fontawesome.com/c866f14262.js" crossorigin="anonymous"></script>
+    
+    <footer class="footer">
+        <p class="footer__left">Created by: Leandro Birth</p>
+        <p class="footer__right">Last update: November, 2024</p>
+    </footer>
+  
+
+</body>
+</html>

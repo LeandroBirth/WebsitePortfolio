@@ -1,0 +1,246 @@
+<div class="portfolio-content">
+    <h1 class="portfolio-content__title" style="font-family: 'Fira Code', monospace;">Back-End Portfolio</h1>
+    <div class="portfolio-content__projects-container">
+        <!-- ForumHub Project -->
+        <div class="portfolio-content__project-box" id="backend-project-forumhub">
+            <div align="center">
+                <img height="80" style="margin-bottom: 10px;" src="https://i.imgur.com/RYYUpCK.png" alt="ForumHub Logo">
+                <h3><strong>ForumHUB</strong> - API REST</h3>
+                <p>Completed during the <a href="https://www.oracle.com/br/education/oracle-next-education/">ONE (Oracle
+                        Next Education)</a> program, hosted on the <a href="https://www.alura.com.br/">Alura
+                        platform</a>.</p>
+            </div>
+
+            <h3 class="portfolio-content__subtitle">Overview</h3>
+            <p>This project is a <strong>REST API</strong> for managing a forum where users can:</p>
+            <ul>
+                <li>Create, view, update, and delete topics.</li>
+                <li>Add and manage responses to topics.</li>
+                <li>Authenticate and authorize users with JWT.</li>
+            </ul>
+            <p>The API is built using <strong>Spring Framework</strong> and adheres to REST best practices with proper
+                validations, database integration, and secure access control.</p>
+
+            <h3 class="portfolio-content__subtitle">Main Endpoints</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <thead style="background-color: #030303; font-weight: bold;">
+                    <tr>
+                        <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Method</th>
+                        <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">URL</th>
+                        <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[GET]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/topics</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Lists all topics.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[GET]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/topics/{id}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Retrieves a specific topic.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[POST]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/topics</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Creates a new topic.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[PUT]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/topics/{id}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Updates an existing topic.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[DELETE]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/topics/{id}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Deletes a topic.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[GET]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">topics/{id}/answers</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Lists all responses to a topic.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[POST]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/topics/{id}/answers</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Adds a response to a topic.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[POST]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/answers/{id}/answer_solution</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Marks a response as the topic solution.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[POST]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/api/login</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Logs in to receive a JWT token.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;"><strong>[POST]</strong></td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">/api/register</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Registers a new user.</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+
+            <h3 class="portfolio-content__subtitle">Technologies Used</h3>
+            <ul>
+                <li><strong>Language:</strong> Java</li>
+                <li><strong>IDE:</strong> <a href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a></li>
+                <li><strong>Framework:</strong> SpringBoot</li>
+                <li>Spring Data JPA, Spring Boot Starter Web, MySQL, Flyway, Lombok, Spring Validation, Spring Boot
+                    Security, Java-JWT.</li>
+            </ul>
+            
+            <p><br>You can access the code on my GitHub, go check it out:
+                <a href="https://github.com/leandrobirth" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </p>
+
+        </div>
+
+        <!-- Calculator for Android Project -->
+        <div class="portfolio-content__project-box" id="backend-project1">
+            <h2 class="portfolio-content__subtitle">Calculator for Android (JAVA): Birth Calculator +-</h2>
+            <p><strong>Description:</strong> Birth Calculator +- is an Android-based calculator app with a user-friendly
+                interface designed to handle basic arithmetic operations such as addition, subtraction, multiplication,
+                and division. Built as part of a project for <strong>Vanderbilt University's Java for Android
+                    program</strong>, this app was <strong>developed in Java using Android Studio</strong> and
+                demonstrates fundamental concepts of Android app development.</p>
+            <div class="spacer"></div>
+            <h3 class="portfolio-content__subtitle">Key Features:</h3>
+            <ul>
+                <li><strong>Basic Operations:</strong> Supports addition, subtraction, multiplication, and division.
+                </li>
+                <li><strong>Decimal Support:</strong> Updated to accept decimal inputs, making it suitable for
+                    operations requiring floating-point precision.</li>
+                <li><strong>Error Handling:</strong> Displays appropriate messages when invalid inputs are detected,
+                    such as division by zero.</li>
+            </ul>
+            <h3 class="portfolio-content__subtitle">Project Structure:</h3>
+            <ul>
+                <li><strong>Logic Layer:</strong> Processes user inputs and performs the chosen arithmetic operation.
+                </li>
+                <li><strong>UI Layer:</strong> Facilitates user interaction and displays results.</li>
+            </ul>
+            <h3 class="portfolio-content__subtitle">Code Improvements:</h3>
+            <ol>
+                <li><strong>Double Data Type Integration:</strong> The calculator initially accepted only integer
+                    inputs. It was modified to handle decimal values (e.g., 3.14, 0.75).</li>
+                <li><strong>User Interface Enhancements:</strong>
+                    <ul>
+                        <li><strong>Decimal Input Support:</strong> Updated <code>EditText</code> input fields to accept
+                            decimal values, ensuring compatibility with the new double functionality.</li>
+                        <li><strong>Improved Layout:</strong> Constraint layout adjustments for a clean and responsive
+                            design across devices.</li>
+                    </ul>
+                </li>
+            </ol>
+            <p><br>You can access the code on my GitHub, go check it out:
+                <a href="https://github.com/leandrobirth" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </p>
+            <a href="Styles/calculator-img.png" target="_blank">
+                <div class="image-container"
+                    style="border: 5px solid #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); display: inline-block;">
+                    <img src="Styles/calculator-img.png" alt="Calculator for Android"
+                        class="portfolio-content__project-image1">
+                </div>
+            </a>
+        </div>
+
+        <!-- Currency Converter Application -->
+        <div class="portfolio-content__project-box" id="backend-project2">
+            <h2 class="portfolio-content__subtitle">Currency Converter Application for Desktop</h2>
+            <p><strong>Description:</strong> A simple yet effective currency converter application built using JavaFX.
+                This application allows users to seamlessly convert currencies with a clean and intuitive interface. It
+                utilizes an updated API to fetch the most current currency exchange rates of the day, parsing the API's
+                JSON response to perform accurate and reliable conversions.</p>
+
+            <h3 class="portfolio-content__subtitle">Getting Started:</h3>
+            <ul>
+                <li><strong>Prerequisites:</strong>
+                    <ul>
+                        <li>Java 21 or higher installed on your system.</li>
+                        <li>Ensure that you have permission to execute shell scripts (Linux/Mac).</li>
+                    </ul>
+                </li>
+                <li><strong>Setup:</strong>
+                    <ul>
+                        <li>Download and extract the <code>CurrencyConverter.zip</code> or
+                            <code>CurrencyConverter.tar.gz</code> file.</li>
+                        <li>Open a terminal and navigate to the extracted directory.</li>
+                    </ul>
+                </li>
+                <li><strong>How to Run:</strong>
+                    <ul>
+                        <li>Ensure execution permissions are set for <code>run.sh</code> using:</li>
+                        <pre>chmod +x run.sh</pre>
+                        <li>Run the following command to execute the application:</li>
+                        <pre>./run.sh</pre>
+                        <li>Alternatively, use:</li>
+                        <pre>sh run.sh</pre>
+                    </ul>
+                </li>
+            </ul>
+            <p><br>You can access the code on my GitHub:
+                <a href="https://github.com/leandrobirth" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </p>
+            <div class="image-container" style="margin-top: 10px;">
+                <img width="349" src="https://github.com/user-attachments/assets/c22bb8c6-f06c-40c3-8837-d00429fe637b"
+                    alt="Currency Converter Application Screenshot 1">
+                <img width="349" src="https://github.com/user-attachments/assets/26a021f1-ff52-43e6-bdf3-313db2aa8936"
+                    alt="Currency Converter Application Screenshot 2">
+            </div>
+        </div>
+
+        <!-- ScreenMatch-Phrases -->
+        <div class="portfolio-content__project-box" id="backend-project-screenmatch">
+            <h2 class="portfolio-content__subtitle">ScreenMatch-Phrases</h2>
+            <p><strong>Description:</strong> This webpage uses a MySQL database containing famous quotes from movies. It
+                is powered by a <strong>Java backend</strong> and features a simple front-end for easy navigation and
+                execution. The front-end is hosted on <strong>GitHub Pages</strong>, while the backend and database are
+                hosted on <strong>Fly.io</strong> and <strong>PlanetScale</strong> respectively.</p>
+            <p>To have full access to the page and your favorite movie quotes, click on the webpage image below.</p>
+
+
+            <div class="spacer"></div>
+            <h3 class="portfolio-content__subtitle">💻 Technologies Used</h3>
+            <h4>Backend Dependencies</h4>
+            <ul>
+                <li><strong>Spring Boot Web</strong>: RESTful APIs and web functionalities.</li>
+                <li><strong>Spring Data JPA</strong>: Simplified data access with ORM.</li>
+                <li><strong>Spring Boot DevTools</strong>: Development-time tools for faster iterations.</li>
+                <li><strong>MySQL Connector</strong>: MySQL database integration.</li>
+                <li><strong>Jakarta Persistence API</strong>: JPA compliance and persistence handling.</li>
+                <li><strong>Lombok</strong>: Reduces boilerplate code with annotations.</li>
+            </ul>
+
+            <h4>Hosting and Database</h4>
+            <ul>
+                <li><strong>GitHub Pages</strong>: Hosts the front-end.</li>
+                <li><strong>Fly.io</strong>: Hosts the Java backend.</li>
+                <li><strong>PlanetScale</strong>: MySQL-compatible database.</li>
+            </ul>
+            <p><br>You can access the code on my GitHub:
+                <a href="https://github.com/LeandroBirth/ScreenMatch-Phrases" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </p>
+            <p><br>To have full access to the page and your favorite movie quotes, click on the webpage image below.</p>
+            <div class="image-container" style="margin-top: 10px;">
+                <a href="https://<your-github-pages-link>" target="_blank">
+                    <img width="349"
+                        src="https://github.com/user-attachments/assets/2d339403-bff2-4d99-8fc5-838e0c978ff1"
+                        alt="ScreenMatch-Phrases Screenshot">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
