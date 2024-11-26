@@ -120,14 +120,14 @@ a {
     width: 100%; 
     height: auto;
     border-radius: 15px;
-    margin-bottom: 2rem
+    
 }
 
 .portfolio-content__project-image2{
     width: 100%; 
     height: auto;
     border-radius: 15px;
-    margin-bottom:none;
+   
 } 
 
 .portfolio-content__projects-slides {
@@ -143,9 +143,13 @@ a {
     border: none; 
 }
 
+.portfolio-image-calculator{
+    width: 30%; 
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 2rem
 
-
-
+}
 
 .header--fixed {
     position: sticky;
@@ -278,6 +282,7 @@ a {
     margin-top: 7rem;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 10rem;
     
 }
 
