@@ -283,7 +283,10 @@ a {
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 10rem;
-    
+}
+
+.container.container--about {
+    padding-bottom: 0;
 }
 
 .about {
