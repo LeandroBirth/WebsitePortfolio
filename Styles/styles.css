@@ -83,11 +83,13 @@ a {
 
 .portfolio-content__project-box {
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    margin-bottom: 2rem;
+    margin-bottom: none;
+    padding: 4rem
 }
 
 .portfolio-content__project-box:last-of-type {
     border-bottom: none;
+    padding: 4rem
 }
 
 .portfolio-content__copy {
