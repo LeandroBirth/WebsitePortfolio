@@ -1,15 +1,54 @@
 <div class="portfolio-content">
     <h1 class="portfolio-content__title" style="font-family: 'Fira Code', monospace;">Back-End Portfolio</h1>
     <div class="portfolio-content__projects-container">
+
+        <!-- Voll.med Project -->
+        <div class="portfolio-content__project-box" id="backend-project2">
+            <h2 class="portfolio-content__subtitle">Voll.med: Medical Clinic Management (REST API)</h2>
+            <p><strong>Description:</strong> Voll.med is a fictional medical clinic that needs an application for
+                managing appointments. The application should have functionalities that allow for the registration of
+                doctors and patients, as well as the scheduling and cancellation of appointments. While a development
+                team will be responsible for the mobile application, ours will be in charge of developing the project's
+                REST API. <em>The application language is Portuguese</em>.</p>
+            <div class="spacer"></div>
+            <h3 class="portfolio-content__subtitle">Key Features:</h3>
+            <ul>
+                <li><strong>CRUD for doctors:</strong> Supports Create, Read, Update, and Delete operations for doctor
+                    records.</li>
+                <li><strong>CRUD for patients:</strong> Supports Create, Read, Update, and Delete operations for patient
+                    records.</li>
+                <li><strong>Appointment scheduling:</strong> Allows scheduling of medical appointments.</li>
+                <li><strong>Appointment cancellation:</strong> Allows cancellation of medical appointments.</li>
+                <li><strong>JWT Stateless Authentication:</strong> Secures API endpoints by requiring a valid JWT token for access, ensuring scalability and session-less interactions.</li>
+            </ul>
+            <h3 class="portfolio-content__subtitle">Documentation:</h3>
+            <p>The application functionality documentation can be accessed at this link: <a
+                    href="https://trello.com/b/O0lGCsKb/api-voll-med" target="_blank">Trello</a> (In Portuguese)</p>
+            <h3 class="portfolio-content__subtitle">Technologies Used:</h3>
+            <ul>
+                <li><strong>Java 17</strong></li>
+                <li><strong>Spring Boot 3</strong></li>
+                <li><strong>Maven</strong></li>
+                <li><strong>MySQL</strong></li>
+                <li><strong>Hibernate</strong></li>
+                <li><strong>Flyway</strong></li>
+                <li><strong>Lombok</strong></li>
+                <li><strong>Spring Security with JWT</strong></li>
+            </ul>
+            <p><br>You can access the code on my GitHub, go check it out: <a href="https://github.com/leandrobirth"
+                    target="_blank"> <i class="fab fa-github"></i> GitHub </a> </p>
+        </div>
+        
+
         <!-- ForumHub Project -->
         <div class="portfolio-content__project-box" id="backend-project-forumhub">
             <div>
-                
-                <h3><strong>ForumHUB</strong> - API REST</h3>
+
+                <h3><strong>ForumHUB</strong> - REST API </h3>
                 <p>Completed during the <a href="https://www.oracle.com/br/education/oracle-next-education/">ONE (Oracle
                         Next Education)</a> program, hosted on the <a href="https://www.alura.com.br/">Alura
                         platform</a>.</p>
-                        <img height="80" style="margin-bottom: 10px;" src="https://i.imgur.com/RYYUpCK.png" alt="ForumHub Logo">
+                <img height="80" style="margin-bottom: 10px;" src="https://i.imgur.com/RYYUpCK.png" alt="ForumHub Logo">
             </div>
 
             <h3 class="portfolio-content__subtitle">Overview</h3>
@@ -84,7 +123,7 @@
                     </tr>
                 </tbody>
             </table>
-            
+
 
             <h3 class="portfolio-content__subtitle">Technologies Used</h3>
             <ul>
@@ -94,7 +133,7 @@
                 <li>Spring Data JPA, Spring Boot Starter Web, MySQL, Flyway, Lombok, Spring Validation, Spring Boot
                     Security, Java-JWT.</li>
             </ul>
-            
+
             <p><br>You can access the code on my GitHub, go check it out:
                 <a href="https://github.com/leandrobirth" target="_blank">
                     <i class="fab fa-github"></i> GitHub
@@ -102,6 +141,8 @@
             </p>
 
         </div>
+
+        
 
         <!-- Calculator for Android Project -->
         <div class="portfolio-content__project-box" id="backend-project1">
@@ -164,48 +205,48 @@
 
             <h3 class="portfolio-content__subtitle">💻 Technologies Used</h3>
             <ul>
-                
-                    <table>
-                        <thead>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Programming Language</strong></td>
-                                <td>Java</td>
-                            </tr>
-                            <tr>
-                                <td><strong>UI Framework</strong></td>
-                                <td>JavaFX</td>
-                            </tr>
-                            <tr>
-                                <td><strong>API Integration</strong></td>
-                                <td>REST API (Currency Exchange API)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>JSON Parsing</strong></td>
-                                <td>Jackson Library</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Build Tool</strong></td>
-                                <td>Maven</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Java Version</strong></td>
-                                <td>Java 21</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <table>
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Programming Language</strong></td>
+                            <td>Java</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UI Framework</strong></td>
+                            <td>JavaFX</td>
+                        </tr>
+                        <tr>
+                            <td><strong>API Integration</strong></td>
+                            <td>REST API (Currency Exchange API)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>JSON Parsing</strong></td>
+                            <td>Jackson Library</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Build Tool</strong></td>
+                            <td>Maven</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Java Version</strong></td>
+                            <td>Java 21</td>
+                        </tr>
+                    </tbody>
+                </table>
                 </li>
             </ul><br>
-            
-                <li><strong>How to Run:</strong>
-                    <ul>
-                        <li>Ensure execution permissions are set for <code>run.sh</code> using:</li>
-                        <pre>chmod +x run.sh</pre>
-                        <li>Run the following command to execute the application:</li>
-                        <pre>./run.sh or sh run.sh</pre>
-                    </ul>
-                </li>
+
+            <li><strong>How to Run:</strong>
+                <ul>
+                    <li>Ensure execution permissions are set for <code>run.sh</code> using:</li>
+                    <pre>chmod +x run.sh</pre>
+                    <li>Run the following command to execute the application:</li>
+                    <pre>./run.sh or sh run.sh</pre>
+                </ul>
+            </li>
             </ul>
             <p><br>You can access the code on my GitHub:
                 <a href="https://github.com/leandrobirth" target="_blank">
@@ -220,13 +261,14 @@
             </div>
         </div>
 
- <!-- ScreenMatch-Phrases -->
+        <!-- ScreenMatch-Phrases -->
         <div class="portfolio-content__project-box" id="backend-project-screenmatch">
             <h2 class="portfolio-content__subtitle">ScreenMatch-Phrases</h2>
             <p><strong>Description:</strong> This webpage uses a MySQL database containing famous quotes from movies. It
                 is powered by a <strong>Java backend</strong> and features a simple front-end for easy navigation and
                 execution.</p>
-            <p>Click on the video below to see the website project running with a front-end interface, Java as the backend using a MySQL
+            <p>Click on the video below to see the website project running with a front-end interface, Java as the
+                backend using a MySQL
                 database.</p>
 
             <div class="spacer"></div>
@@ -246,11 +288,13 @@
                     <i class="fab fa-github"></i> GitHub
                 </a>
             </p>
-        
+
             <div class="image-container" style="margin-top: 10px;">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/Vswqc7BBAg8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Vswqc7BBAg8" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
-        
+
         </div>
     </div>
 </div>
