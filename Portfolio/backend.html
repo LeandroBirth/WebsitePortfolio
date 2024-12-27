@@ -37,17 +37,67 @@
         <li><strong>Spring DevTools</strong></li>
     </ul>
     <h3 class="portfolio-content__subtitle">Documentation and API Endpoints:</h3>
-    <p>API documentation is available in Swagger. Here are the key endpoints:</p>
-    <ul>
-        <li><strong>Swagger UI:</strong> <code>GET /swagger-ui.html</code></li>
-        <li><strong>OpenAPI Docs:</strong> <code>GET /v3/api-docs</code></li>
-        <li><strong>Authentication:</strong> <code>POST /api/v1/auth/signup</code>, <code>POST /api/v1/auth/login</code></li>
-        <li><strong>Users:</strong> <code>GET /api/v1/users/{id}</code>, <code>PUT /api/v1/users/{id}</code>, <code>DELETE /api/v1/users/{id}</code></li>
-        <li><strong>Forums:</strong> <code>GET /api/v1/forums</code>, <code>POST /api/v1/forums</code>, <code>PUT /api/v1/forums/{id}</code>, <code>DELETE /api/v1/forums/{id}</code></li>
-        <li><strong>Topics:</strong> <code>GET /api/v1/topics</code>, <code>POST /api/v1/topics</code>, <code>PUT /api/v1/topics/{id}</code>, <code>DELETE /api/v1/topics/{id}</code></li>
-        <li><strong>Comments:</strong> <code>GET /api/v1/comments</code>, <code>POST /api/v1/comments</code>, <code>PUT /api/v1/comments/{id}</code>, <code>DELETE /api/v1/comments/{id}</code></li>
-        <li><strong>Likes:</strong> <code>POST /api/v1/likes</code>, <code>DELETE /api/v1/likes</code></li>
-    </ul>
+    <p>API documentation is available in Swagger. Below are the key endpoints:</p>
+<ul>
+    <li>
+        <strong>Swagger UI:</strong>
+        <code>GET /swagger-ui.html</code>
+    </li>
+    <li>
+        <strong>OpenAPI Docs:</strong>
+        <code>GET /v3/api-docs</code>
+    </li>
+    <li>
+        <strong>Authentication:</strong>
+        <ul>
+            <li><code>POST /api/v1/auth/signup</code> - User registration</li>
+            <li><code>POST /api/v1/auth/login</code> - User login</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Users:</strong>
+        <ul>
+            <li><code>GET /api/v1/users/{id}</code> - Retrieve user details by ID</li>
+            <li><code>PUT /api/v1/users/{id}</code> - Update user details</li>
+            <li><code>DELETE /api/v1/users/{id}</code> - Delete a user by ID</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Forums:</strong>
+        <ul>
+            <li><code>GET /api/v1/forums</code> - List all forums</li>
+            <li><code>POST /api/v1/forums</code> - Create a new forum</li>
+            <li><code>PUT /api/v1/forums/{id}</code> - Update forum details</li>
+            <li><code>DELETE /api/v1/forums/{id}</code> - Delete a forum by ID</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Topics:</strong>
+        <ul>
+            <li><code>GET /api/v1/topics</code> - List all topics</li>
+            <li><code>POST /api/v1/topics</code> - Create a new topic</li>
+            <li><code>PUT /api/v1/topics/{id}</code> - Update topic details</li>
+            <li><code>DELETE /api/v1/topics/{id}</code> - Delete a topic by ID</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Comments:</strong>
+        <ul>
+            <li><code>GET /api/v1/comments</code> - List all comments</li>
+            <li><code>POST /api/v1/comments</code> - Add a new comment</li>
+            <li><code>PUT /api/v1/comments/{id}</code> - Update comment details</li>
+            <li><code>DELETE /api/v1/comments/{id}</code> - Delete a comment by ID</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Likes:</strong>
+        <ul>
+            <li><code>POST /api/v1/likes</code> - Add a like</li>
+            <li><code>DELETE /api/v1/likes</code> - Remove a like</li>
+        </ul>
+    </li>
+</ul>
+
     <p><br>You can access the project code on my GitHub. Check it out: 
         <a href="https://github.com/leandrobirth" target="_blank"> 
             <i class="fab fa-github"></i> GitHub 
