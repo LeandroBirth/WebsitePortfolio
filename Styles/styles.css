@@ -11,7 +11,6 @@ html, body {
     font-family: 'Lato', sans-serif;
     letter-spacing: 0.02rem;
     color: white;
-    overflow: visible;
 }
 
 html {
@@ -22,7 +21,6 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #202020; 
-    overflow: hidden;
 }
 
 body:before {
@@ -274,6 +272,26 @@ a {
     border-bottom-right-radius: 10px;
 }
 
+.mobile-menu__container {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.mobile-menu {
+    
+    width: 100%;
+    height: 100vh;
+    padding: 3rem;
+    background-color: #000;
+    transition: all 300ms ease;
+    opacity: 0;
+    transform: translate(50%, 0);
+}
+
 
 
 .container {
@@ -293,23 +311,16 @@ a {
 
 .about {
     display: flex;
-    justify-content: flex-start;
-    padding-top: auto;
-    align-items: center;
-    
+    justify-content: flex-start;    
 }
 
 .about__photo {
-    position: relative;
-    top: -4rem;
-    left: -2rem;
+    padding-top: 3rem;
 }
 
 .about__photo img {
     position: relative;
-    
     border-radius: 82% 18% 82% 18% / 19% 82% 18% 81%;
-    width: 120%; 
     max-width: 24rem; 
     height: auto; 
     box-shadow: 0rem 1rem 2rem #0000004d;
@@ -319,7 +330,6 @@ a {
 
 .about__description {
     position: relative;
-    margin-left: relative; 
     height: 600px;
     width: 100%;
     max-width: 600px;
@@ -355,7 +365,7 @@ a {
     display: none;
     width: 100%; 
     max-width: 560px;
-    padding: 1.5rem 0 1rem 4rem;
+    padding: 1.5rem 0 1rem 1rem;
     opacity: 0;
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
@@ -428,6 +438,7 @@ a {
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 2000;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -447,10 +458,93 @@ a {
     }
 }
 
+@media (min-width: 767px) {
+    .mobile-menu__container {
+        display: none;
+    }
+
+    .mobile-menu__icon {
+        display: none;
+    }
+}
 
 @media (max-width: 767px) {
-    .about__photo {
-        top: -1rem;
+    main {
+        padding: 0 1rem 6rem;
+    }
+
+    .container {
+        display: block;
+        margin: 0;
+    }
+
+    .header--fixed {
+        top: 0;
+        flex-direction: row-reverse;
+        background-color: rgba(0,0,0,0.5);
+    }
+    .header__bottom {
+        flex-direction: row-reverse;
+        max-width: 900px;
+        margin: 0;
+    }
+
+    .header__center {
+        text-align: left;
+    }
+
+    .header__left {
+        display: none;
+    }
+
+    .mobile-menu__icon {
+        display: block;
+        position: relative;
+        z-index: 1000;
+    }
+
+    .mobile-menu__horizontal-bar {
+        border-top: 3px solid white;
+        width: 2.75rem;
+        height: 3px;
+        border-radius: 3px;
+        margin: 0 0 0.5rem 0;
+        transition: all 300ms ease;
+    }
+
+    .mobile-menu__horizontal-bar:last-of-type {
+        margin: 0;
+    }
+
+    .mobile-menu__icon.menu-open .mobile-menu__horizontal-bar:last-of-type {
+        display: none;
+    }
+
+    .mobile-menu__icon.menu-open .mobile-menu__horizontal-bar:first-of-type {
+        transform: rotate(45deg) translate(8px, 0);
+    }
+
+    .mobile-menu__icon.menu-open .mobile-menu__horizontal-bar:nth-last-of-type(2) {
+        transform: rotate(-45deg) translate(8px, 0);
+    }
+
+    .mobile-menu__container.menu-open {
+        display: block;
+    }
+
+    .mobile-menu.menu-open {
+        opacity: 0.8;
+        transform: translate(0, 0);
+    }
+
+    .mobile-menu__container .menu__dropdown {
+        margin-top: 3rem;
+    }
+
+    .portfolio-content {
+        max-height: none;
+        overflow: auto;
+        padding-top: 1.5rem;
     }
 
     .portfolio-content.flex {
@@ -461,14 +555,45 @@ a {
         padding: 0;
     }
 
+    .portfolio-content__project-box {
+        padding: 1rem 0 0;
+    }
+
+    .portfolio-content__project-box:last-of-type {
+        padding: 1rem 0 0;
+    }
+
+    .portfolio-image-calculator {
+        width: 100%;
+    }
+
     .about {
         flex-direction: column;
+        align-items: center;
     }
+
+    .about__navigation {
+        padding-bottom: 0;
+    }
+
+    .about__slide {
+        padding: 1.5rem 0;
+    }
+
+    .about__photo img {
+        margin: 0; 
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
 }
 
 
 @media (max-width: 480px) {
     .about__photo img {
-        max-width: 90%; 
+        max-width: 100%; 
     }
 }
