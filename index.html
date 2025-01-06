@@ -18,6 +18,55 @@
                 <a href="#"><span role="img" aria-label="Canada Flag">🇨🇦</span></a>                
             </div>
         </div> -->
+        <div id="mobileMenuIcon" class="mobile-menu__icon">
+            <div class="mobile-menu__horizontal-bar"></div>
+            <div class="mobile-menu__horizontal-bar"></div>
+            <div class="mobile-menu__horizontal-bar"></div>
+        </div>
+        <div id="mobileMenuContainer" class="mobile-menu__container">
+            <nav id="mobileMenu" class="mobile-menu">
+                <button id="aboutBtn" class="menu__btn">About Me</button>
+                <div class="menu__dropdown">
+                    <button class="menu__btn">Portfolio</button>
+                    <div class="menu__dropdown-content">
+                        <a href="#" class="mobile-menu__link" onclick="showPortfolio('backend')">
+                            <i class="fas fa-server"></i> Back-End
+                        </a>
+                        <a href="#" class="mobile-menu__link" onclick="showPortfolio('frontend')">
+                            <i class="fas fa-code"></i> Front-End
+                        </a>
+                        <a href="#" class="mobile-menu__link" onclick="showPortfolio('ux')">
+                            <i class="fas fa-paint-brush"></i> UX Design
+                        </a>
+                        <a href="#contact" class="mobile-menu__link" onclick="showPortfolio('publications')">
+                            <i class="fas fa-chart-pie"></i> Publications
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="menu__dropdown">
+                    <button class="menu__btn">Contact</button>
+                    <div class="menu__dropdown-content">
+                        <a href="https://www.linkedin.com/in/leandro-nascimento-258747165/" class="mobile-menu__link" target="_blank">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://github.com/LeandroBirth" class="mobile-menu__link" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://instagram.com/weareleandro" class="mobile-menu__link" target="_blank">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                        <a href="javascript:void(0);" class="mobile-menu__link" onclick="openContactSlide();">
+                            <i class="fas fa-envelope"></i> Email
+                        </a>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+                
+            </nav>
+        </div>
         <div class="header__bottom">
             <div class="header__left">
                 <nav class="menu">
@@ -128,6 +177,7 @@
     </div>
     <script src="Code/scriptPortfolio.js"></script>
     <script src="Code/script.js"></script>
+    <script src="Code/mobileMenu.js"></script>
     <script src="https://kit.fontawesome.com/c866f14262.js" crossorigin="anonymous"></script>
     
     <footer class="footer">
