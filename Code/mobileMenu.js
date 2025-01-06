@@ -1,4 +1,3 @@
-console.log('mobile menu is running');
 
 const mobileMenuIcon = document.getElementById('mobileMenuIcon');
 const mobileMenuContainer = document.getElementById('mobileMenuContainer');
@@ -11,7 +10,6 @@ mobileMenuLink.forEach(element => {
 });
 
 function handleToggle () {
-    console.log('icon clicked');
     mobileMenuContainer.classList.toggle('menu-open');
     setTimeout(() => mobileMenu.classList.toggle('menu-open'), 10);
     mobileMenuIcon.classList.toggle('menu-open');
