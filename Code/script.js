@@ -1,5 +1,11 @@
-document.getElementById('aboutBtn').addEventListener('click', () => {
-    window.location.href = "index.html"; 
+const aboutBtn = document.getElementById('aboutBtn');
+const mobileAboutBtn = document.getElementById('mobileAboutBtn');
+aboutBtn.addEventListener('click', () => {
+    window.location.href = "index.html";
+});
+
+mobileAboutBtn.addEventListener('click', () => {
+    window.location.href = "index.html";
 });
 
 let currentSlide = 0;
