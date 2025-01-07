@@ -474,6 +474,10 @@ a {
     .mobile-menu__icon {
         display: none;
     }
+
+    .iframe {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 767px) {
