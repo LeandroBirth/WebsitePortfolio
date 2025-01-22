@@ -10,8 +10,11 @@ function showPortfolio(type) {
         case 'frontend':
             filePath = 'Portfolio/frontend.html';
             break;
+        case 'data-analysis':
+            filePath = 'Portfolio/data-analysis.html';
+            break; 
         case 'backend':
-            filePath = 'Portfolio/backend.html'; // Updated this line for consistency
+            filePath = 'Portfolio/backend.html';
             break;
         case 'publications':
             filePath = 'Portfolio/publications.html';
