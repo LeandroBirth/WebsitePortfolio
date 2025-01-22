@@ -1,302 +1,358 @@
-<div class="portfolio-content">
+ <div class="portfolio-content">
     <h1 class="portfolio-content__title" style="font-family: 'Fira Code', monospace;">Back-End Portfolio</h1>
     <div class="portfolio-content__projects-container">
+        <!-- Django CRM Project -->
+            <div class="portfolio-content__project-box" id="django-crm-management">
+                <h2 class="portfolio-content__subtitle">Django CRM - Management</h2>
+                <p><strong>Description:</strong> This is a Django-based CRM application designed for managing contacts. It provides features such as user registration, login, logout, password changes, and profile updates. The project is built using Django and Python, and it includes a user-friendly UI.</p>
 
-        <!-- ForumHub Project -->
-<div class="portfolio-content__project-box" id="backend-project3">
-    <h2 class="portfolio-content__subtitle">ForumHub: Collaborative Social Networking (REST API)</h2>
-    <p><strong>Description:</strong> ForumHub is a social networking platform designed to foster a collaborative 
-        environment for discussions and user interactions. Developed as part of the Oracle Next Education (ONE) program 
-        in collaboration with Alura, it goes beyond the challenge requirements by offering robust features such as user 
-        authentication, topic creation, forum discussions, and a "high" (like) system to engage with content.</p>
-    <div class="spacer"></div>
-    <h3 class="portfolio-content__subtitle">Key Features:</h3>
-    <ul>
-        <li><strong>User Authentication:</strong> Sign up and login functionality using JWT.</li>
-        <li><strong>Forums Management:</strong> Create, view, update, and delete forums.</li>
-        <li><strong>Topics Management:</strong> Create, view, update, and delete discussion topics.</li>
-        <li><strong>Comments:</strong> Participate in discussions by adding and managing comments.</li>
-        <li><strong>Like System:</strong> Add and remove likes for topics or comments.</li>
-    </ul>
-    <h3 class="portfolio-content__subtitle">Technologies Used:</h3>
-    <ul>
-        <li><strong>Java 21</strong></li>
-        <li><strong>Spring Boot 3.4</strong></li>
-        <li><strong>Spring Data JPA</strong></li>
-        <li><strong>Spring Validation</strong></li>
-        <li><strong>PostgreSQL</strong></li>
-        <li><strong>Maven</strong></li>
-        <li><strong>Spring Security 6 with JWT</strong></li>
-        <li><strong>JUnit 5</strong></li>
-        <li><strong>Mockito</strong></li>
-        <li><strong>H2 Database</strong></li>
-        <li><strong>Spring Data Redis</strong></li>
-        <li><strong>Spring Cache</strong></li>
-        <li><strong>SpringDoc OpenAPI</strong></li>
-        <li><strong>Spring Actuator</strong></li>
-        <li><strong>Spring DevTools</strong></li>
-    </ul>
-    <h3 class="portfolio-content__subtitle">Documentation and API Endpoints:</h3>
-    <p>API documentation is available in Swagger. Below are the key endpoints:</p>
-<ul>
-    <li>
-        <strong>Swagger UI:</strong>
-        <code>GET /swagger-ui.html</code>
-    </li>
-    <li>
-        <strong>OpenAPI Docs:</strong>
-        <code>GET /v3/api-docs</code>
-    </li>
-    <li>
-        <strong>Authentication:</strong>
-        <ul>
-            <li><code>POST /api/v1/auth/signup</code> - User registration</li>
-            <li><code>POST /api/v1/auth/login</code> - User login</li>
-        </ul>
-    </li>
-    <li>
-        <strong>Users:</strong>
-        <ul>
-            <li><code>GET /api/v1/users/{id}</code> - Retrieve user details by ID</li>
-            <li><code>PUT /api/v1/users/{id}</code> - Update user details</li>
-            <li><code>DELETE /api/v1/users/{id}</code> - Delete a user by ID</li>
-        </ul>
-    </li>
-    <li>
-        <strong>Forums:</strong>
-        <ul>
-            <li><code>GET /api/v1/forums</code> - List all forums</li>
-            <li><code>POST /api/v1/forums</code> - Create a new forum</li>
-            <li><code>PUT /api/v1/forums/{id}</code> - Update forum details</li>
-            <li><code>DELETE /api/v1/forums/{id}</code> - Delete a forum by ID</li>
-        </ul>
-    </li>
-    <li>
-        <strong>Topics:</strong>
-        <ul>
-            <li><code>GET /api/v1/topics</code> - List all topics</li>
-            <li><code>POST /api/v1/topics</code> - Create a new topic</li>
-            <li><code>PUT /api/v1/topics/{id}</code> - Update topic details</li>
-            <li><code>DELETE /api/v1/topics/{id}</code> - Delete a topic by ID</li>
-        </ul>
-    </li>
-    <li>
-        <strong>Comments:</strong>
-        <ul>
-            <li><code>GET /api/v1/comments</code> - List all comments</li>
-            <li><code>POST /api/v1/comments</code> - Add a new comment</li>
-            <li><code>PUT /api/v1/comments/{id}</code> - Update comment details</li>
-            <li><code>DELETE /api/v1/comments/{id}</code> - Delete a comment by ID</li>
-        </ul>
-    </li>
-    <li>
-        <strong>Likes:</strong>
-        <ul>
-            <li><code>POST /api/v1/likes</code> - Add a like</li>
-            <li><code>DELETE /api/v1/likes</code> - Remove a like</li>
-        </ul>
-    </li>
-</ul>
+                <div class="image-container" style="max-width: 800px; margin: 0 auto;">
+                    <img width="480" height="600" alt="Screenshot of Django CRM" src="https://github.com/user-attachments/assets/690d855a-b7b8-47c3-8ef4-d2f12e070168" />
+                </div>
+                
 
-    <p><br>You can access the project code on my GitHub. Check it out: 
-        <a href="https://github.com/leandrobirth" target="_blank"> 
-            <i class="fab fa-github"></i> GitHub 
-        </a>
-    </p>
-</div>
+                <div class="spacer"></div>
+                <h3 class="portfolio-content__subtitle">💻 Features</h3>
+                <h4>User Management</h4>
+                <ul>
+                    <li><strong>Registration</strong></li>
+                    <li><strong>Login/Logout</strong></li>
+                    <li><strong>Change Password</strong></li>
+                    <li><strong>Update User Information</strong></li>
+                    <li><strong>Register with Facebook</strong></li>
+                </ul>
 
+                <p><br>You can access the code on my GitHub:
+                    <a href="https://github.com/yourusername/django-crm-management" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </p>
+            </div>
 
-        <!-- Voll.med Project -->
-        <div class="portfolio-content__project-box" id="backend-project2">
-            <h2 class="portfolio-content__subtitle">Voll.med: Medical Clinic Management (REST API)</h2>
-            <p><strong>Description:</strong> Voll.med is a fictional medical clinic that needs an application for
-                managing appointments. The application should have functionalities that allow for the registration of
-                doctors and patients, as well as the scheduling and cancellation of appointments. While a development
-                team will be responsible for the mobile application, ours will be in charge of developing the project's
-                REST API. <em>The application language is Portuguese</em>.</p>
+                
+
+                <!-- ForumHub Project -->
+    <div class="portfolio-content__project-box" id="backend-project3">
+            <h2 class="portfolio-content__subtitle">ForumHub: Collaborative Social Networking (REST API)</h2>
+            <p><strong>Description:</strong> ForumHub is a social networking platform designed to foster a collaborative 
+                environment for discussions and user interactions. Developed as part of the Oracle Next Education (ONE) program 
+                in collaboration with Alura, it goes beyond the challenge requirements by offering robust features such as user 
+                authentication, topic creation, forum discussions, and a "high" (like) system to engage with content.</p>
             <div class="spacer"></div>
             <h3 class="portfolio-content__subtitle">Key Features:</h3>
             <ul>
-                <li><strong>CRUD for doctors:</strong> Supports Create, Read, Update, and Delete operations for doctor
-                    records.</li>
-                <li><strong>CRUD for patients:</strong> Supports Create, Read, Update, and Delete operations for patient
-                    records.</li>
-                <li><strong>Appointment scheduling:</strong> Allows scheduling of medical appointments.</li>
-                <li><strong>Appointment cancellation:</strong> Allows cancellation of medical appointments.</li>
-                <li><strong>JWT Stateless Authentication:</strong> Secures API endpoints by requiring a valid JWT token for access, ensuring scalability and session-less interactions.</li>
+                <li><strong>User Authentication:</strong> Sign up and login functionality using JWT.</li>
+                <li><strong>Forums Management:</strong> Create, view, update, and delete forums.</li>
+                <li><strong>Topics Management:</strong> Create, view, update, and delete discussion topics.</li>
+                <li><strong>Comments:</strong> Participate in discussions by adding and managing comments.</li>
+                <li><strong>Like System:</strong> Add and remove likes for topics or comments.</li>
             </ul>
-            <h3 class="portfolio-content__subtitle">Documentation:</h3>
-            <p>The application functionality documentation can be accessed at this link: <a
-                    href="https://trello.com/b/O0lGCsKb/api-voll-med" target="_blank">Trello</a> (In Portuguese)</p>
             <h3 class="portfolio-content__subtitle">Technologies Used:</h3>
             <ul>
-                <li><strong>Java 17</strong></li>
-                <li><strong>Spring Boot 3</strong></li>
+                <li><strong>Java 21</strong></li>
+                <li><strong>Spring Boot 3.4</strong></li>
+                <li><strong>Spring Data JPA</strong></li>
+                <li><strong>Spring Validation</strong></li>
+                <li><strong>PostgreSQL</strong></li>
                 <li><strong>Maven</strong></li>
-                <li><strong>MySQL</strong></li>
-                <li><strong>Hibernate</strong></li>
-                <li><strong>Flyway</strong></li>
-                <li><strong>Lombok</strong></li>
-                <li><strong>Spring Security with JWT</strong></li>
+                <li><strong>Spring Security 6 with JWT</strong></li>
+                <li><strong>JUnit 5</strong></li>
+                <li><strong>Mockito</strong></li>
+                <li><strong>H2 Database</strong></li>
+                <li><strong>Spring Data Redis</strong></li>
+                <li><strong>Spring Cache</strong></li>
+                <li><strong>SpringDoc OpenAPI</strong></li>
+                <li><strong>Spring Actuator</strong></li>
+                <li><strong>Spring DevTools</strong></li>
             </ul>
-            <p><br>You can access the code on my GitHub, go check it out: <a href="https://github.com/leandrobirth"
-                    target="_blank"> <i class="fab fa-github"></i> GitHub </a> </p>
+            <h3 class="portfolio-content__subtitle">Documentation and API Endpoints:</h3>
+            <p>API documentation is available in Swagger. Below are the key endpoints:</p>
+        <ul>
+            <li>
+                <strong>Swagger UI:</strong>
+                <code>GET /swagger-ui.html</code>
+            </li>
+            <li>
+                <strong>OpenAPI Docs:</strong>
+                <code>GET /v3/api-docs</code>
+            </li>
+            <li>
+                <strong>Authentication:</strong>
+                <ul>
+                    <li><code>POST /api/v1/auth/signup</code> - User registration</li>
+                    <li><code>POST /api/v1/auth/login</code> - User login</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Users:</strong>
+                <ul>
+                    <li><code>GET /api/v1/users/{id}</code> - Retrieve user details by ID</li>
+                    <li><code>PUT /api/v1/users/{id}</code> - Update user details</li>
+                    <li><code>DELETE /api/v1/users/{id}</code> - Delete a user by ID</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Forums:</strong>
+                <ul>
+                    <li><code>GET /api/v1/forums</code> - List all forums</li>
+                    <li><code>POST /api/v1/forums</code> - Create a new forum</li>
+                    <li><code>PUT /api/v1/forums/{id}</code> - Update forum details</li>
+                    <li><code>DELETE /api/v1/forums/{id}</code> - Delete a forum by ID</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Topics:</strong>
+                <ul>
+                    <li><code>GET /api/v1/topics</code> - List all topics</li>
+                    <li><code>POST /api/v1/topics</code> - Create a new topic</li>
+                    <li><code>PUT /api/v1/topics/{id}</code> - Update topic details</li>
+                    <li><code>DELETE /api/v1/topics/{id}</code> - Delete a topic by ID</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Comments:</strong>
+                <ul>
+                    <li><code>GET /api/v1/comments</code> - List all comments</li>
+                    <li><code>POST /api/v1/comments</code> - Add a new comment</li>
+                    <li><code>PUT /api/v1/comments/{id}</code> - Update comment details</li>
+                    <li><code>DELETE /api/v1/comments/{id}</code> - Delete a comment by ID</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Likes:</strong>
+                <ul>
+                    <li><code>POST /api/v1/likes</code> - Add a like</li>
+                    <li><code>DELETE /api/v1/likes</code> - Remove a like</li>
+                </ul>
+            </li>
+        </ul>
+
+            <p><br>You can access the project code on my GitHub. Check it out: 
+                <a href="https://github.com/leandrobirth" target="_blank"> 
+                    <i class="fab fa-github"></i> GitHub 
+                </a>
+            </p>
         </div>
-        
 
-    
 
-        <!-- Calculator for Android Project -->
-        <div class="portfolio-content__project-box" id="backend-project1">
-            <h2 class="portfolio-content__subtitle">Calculator for Android (JAVA): Birth Calculator +-</h2>
-            <p><strong>Description:</strong> Birth Calculator +- is an Android-based calculator app with a user-friendly
-                interface designed to handle basic arithmetic operations such as addition, subtraction, multiplication,
-                and division. Built as part of a project for <strong>Vanderbilt University's Java for Android
-                    program</strong>, this app was <strong>developed in Java using Android Studio</strong> and
-                demonstrates fundamental concepts of Android app development.</p>
+        <!-- Website/App Creation Project -->
+        <div class="portfolio-content__project-box" id="webapp-project">
+            <h2 class="portfolio-content__subtitle">Website/App Python Creation: Live Chat Development </h2>
+            <p><strong>Description:</strong> Developed a live chat feature for both websites and mobile applications. The project 
+                utilized the Flet tool to create both the front-end and back-end systems entirely in Python. 
+                <em>The application language is Portuguese</em>.</p>
             <div class="spacer"></div>
             <h3 class="portfolio-content__subtitle">Key Features:</h3>
             <ul>
-                <li><strong>Basic Operations:</strong> Supports addition, subtraction, multiplication, and division.
-                </li>
-                <li><strong>Decimal Support:</strong> Updated to accept decimal inputs, making it suitable for
-                    operations requiring floating-point precision.</li>
-                <li><strong>Error Handling:</strong> Displays appropriate messages when invalid inputs are detected,
-                    such as division by zero.</li>
+                <li><strong>Real-time communication:</strong> Enabled live chat functionality for websites and apps.</li>
+                <li><strong>Full-stack development:</strong> Designed both front-end and back-end systems using Python.</li>
+                <li><strong>Responsive design:</strong> Ensured compatibility across web and mobile platforms.</li>
             </ul>
-            <h3 class="portfolio-content__subtitle">Project Structure:</h3>
+            <h3 class="portfolio-content__subtitle">Technologies Used:</h3>
             <ul>
-                <li><strong>Logic Layer:</strong> Processes user inputs and performs the chosen arithmetic operation.
-                </li>
-                <li><strong>UI Layer:</strong> Facilitates user interaction and displays results.</li>
+                <li><strong>Python</strong></li>
+                <li><strong>Flet</strong></li>
+                <li><strong>SQLite</strong> or <strong>MySQL</strong></li>
+                <li><strong>WebSocket</strong> or <strong>Socket.IO</strong></li>
             </ul>
-            <h3 class="portfolio-content__subtitle">Code Improvements:</h3>
-            <ol>
-                <li><strong>Double Data Type Integration:</strong> The calculator initially accepted only integer
-                    inputs. It was modified to handle decimal values (e.g., 3.14, 0.75).</li>
-                <li><strong>User Interface Enhancements:</strong>
+            <p><br>You can access the code on my GitHub, go check it out: <a href="https://github.com/leandrobirth" target="_blank"> 
+                <i class="fab fa-github"></i> GitHub </a> </p>
+        </div>
+
+
+
+
+                <!-- Voll.med Project -->
+                <div class="portfolio-content__project-box" id="backend-project2">
+                    <h2 class="portfolio-content__subtitle">Voll.med: Medical Clinic Management (REST API)</h2>
+                    <p><strong>Description:</strong> Voll.med is a fictional medical clinic that needs an application for
+                        managing appointments. The application should have functionalities that allow for the registration of
+                        doctors and patients, as well as the scheduling and cancellation of appointments. While a development
+                        team will be responsible for the mobile application, ours will be in charge of developing the project's
+                        REST API. <em>The application language is Portuguese</em>.</p>
+                    <div class="spacer"></div>
+                    <h3 class="portfolio-content__subtitle">Key Features:</h3>
                     <ul>
-                        <li><strong>Decimal Input Support:</strong> Updated <code>EditText</code> input fields to accept
-                            decimal values, ensuring compatibility with the new double functionality.</li>
-                        <li><strong>Improved Layout:</strong> Constraint layout adjustments for a clean and responsive
-                            design across devices.</li>
+                        <li><strong>CRUD for doctors:</strong> Supports Create, Read, Update, and Delete operations for doctor
+                            records.</li>
+                        <li><strong>CRUD for patients:</strong> Supports Create, Read, Update, and Delete operations for patient
+                            records.</li>
+                        <li><strong>Appointment scheduling:</strong> Allows scheduling of medical appointments.</li>
+                        <li><strong>Appointment cancellation:</strong> Allows cancellation of medical appointments.</li>
+                        <li><strong>JWT Stateless Authentication:</strong> Secures API endpoints by requiring a valid JWT token for access, ensuring scalability and session-less interactions.</li>
                     </ul>
-                </li>
-            </ol>
-            <p><br>You can access the code on my GitHub, go check it out:
-                <a href="https://github.com/leandrobirth" target="_blank">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </p>
-            <a href="Styles/calculator.png" target="_blank">
-                <div class="portfolio-image-calculator"
-                    style="border: 5px solid #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); display: inline-block;">
-                    <img src="Styles/calculator.png" alt="Calculator for Android"
-                        class="portfolio-content__project-image1">
+                    <h3 class="portfolio-content__subtitle">Documentation:</h3>
+                    <p>The application functionality documentation can be accessed at this link: <a
+                            href="https://trello.com/b/O0lGCsKb/api-voll-med" target="_blank">Trello</a> (In Portuguese)</p>
+                    <h3 class="portfolio-content__subtitle">Technologies Used:</h3>
+                    <ul>
+                        <li><strong>Java 17</strong></li>
+                        <li><strong>Spring Boot 3</strong></li>
+                        <li><strong>Maven</strong></li>
+                        <li><strong>MySQL</strong></li>
+                        <li><strong>Hibernate</strong></li>
+                        <li><strong>Flyway</strong></li>
+                        <li><strong>Lombok</strong></li>
+                        <li><strong>Spring Security with JWT</strong></li>
+                    </ul>
+                    <p><br>You can access the code on my GitHub, go check it out: <a href="https://github.com/leandrobirth"
+                            target="_blank"> <i class="fab fa-github"></i> GitHub </a> </p>
                 </div>
-            </a>
-        </div>
+                
 
-        <!-- Currency Converter Application -->
-        <div class="portfolio-content__project-box" id="backend-project2">
-            <h2 class="portfolio-content__subtitle">Currency Converter Application for Desktop</h2>
-            <p><strong>Description:</strong> A simple yet effective currency converter application built using JavaFX.
-                This application allows users to seamlessly convert currencies with a clean and intuitive interface. It
-                utilizes an updated API to fetch the most current currency exchange rates of the day, parsing the API's
-                JSON response to perform accurate and reliable conversions.</p>
+            
 
-            <h3 class="portfolio-content__subtitle">💻 Technologies Used</h3>
-            <ul>
+                <!-- Calculator for Android Project -->
+                <div class="portfolio-content__project-box" id="backend-project1">
+                    <h2 class="portfolio-content__subtitle">Calculator for Android (JAVA): Birth Calculator +-</h2>
+                    <p><strong>Description:</strong> Birth Calculator +- is an Android-based calculator app with a user-friendly
+                        interface designed to handle basic arithmetic operations such as addition, subtraction, multiplication,
+                        and division. Built as part of a project for <strong>Vanderbilt University's Java for Android
+                            program</strong>, this app was <strong>developed in Java using Android Studio</strong> and
+                        demonstrates fundamental concepts of Android app development.</p>
+                    <div class="spacer"></div>
+                    <h3 class="portfolio-content__subtitle">Key Features:</h3>
+                    <ul>
+                        <li><strong>Basic Operations:</strong> Supports addition, subtraction, multiplication, and division.
+                        </li>
+                        <li><strong>Decimal Support:</strong> Updated to accept decimal inputs, making it suitable for
+                            operations requiring floating-point precision.</li>
+                        <li><strong>Error Handling:</strong> Displays appropriate messages when invalid inputs are detected,
+                            such as division by zero.</li>
+                    </ul>
+                    <h3 class="portfolio-content__subtitle">Project Structure:</h3>
+                    <ul>
+                        <li><strong>Logic Layer:</strong> Processes user inputs and performs the chosen arithmetic operation.
+                        </li>
+                        <li><strong>UI Layer:</strong> Facilitates user interaction and displays results.</li>
+                    </ul>
+                    <h3 class="portfolio-content__subtitle">Code Improvements:</h3>
+                    <ol>
+                        <li><strong>Double Data Type Integration:</strong> The calculator initially accepted only integer
+                            inputs. It was modified to handle decimal values (e.g., 3.14, 0.75).</li>
+                        <li><strong>User Interface Enhancements:</strong>
+                            <ul>
+                                <li><strong>Decimal Input Support:</strong> Updated <code>EditText</code> input fields to accept
+                                    decimal values, ensuring compatibility with the new double functionality.</li>
+                                <li><strong>Improved Layout:</strong> Constraint layout adjustments for a clean and responsive
+                                    design across devices.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><br>You can access the code on my GitHub, go check it out:
+                        <a href="https://github.com/leandrobirth" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </p>
+                    <a href="Styles/calculator.png" target="_blank">
+                        <div class="portfolio-image-calculator"
+                            style="border: 5px solid #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); display: inline-block;">
+                            <img src="Styles/calculator.png" alt="Calculator for Android"
+                                class="portfolio-content__project-image1">
+                        </div>
+                    </a>
+                </div>
 
-                <table>
-                    <thead>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Programming Language</strong></td>
-                            <td>Java</td>
-                        </tr>
-                        <tr>
-                            <td><strong>UI Framework</strong></td>
-                            <td>JavaFX</td>
-                        </tr>
-                        <tr>
-                            <td><strong>API Integration</strong></td>
-                            <td>REST API (Currency Exchange API)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>JSON Parsing</strong></td>
-                            <td>Jackson Library</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Build Tool</strong></td>
-                            <td>Maven</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Java Version</strong></td>
-                            <td>Java 21</td>
-                        </tr>
-                    </tbody>
-                </table>
-                </li>
-            </ul><br>
+                <!-- Currency Converter Application -->
+                <div class="portfolio-content__project-box" id="backend-project2">
+                    <h2 class="portfolio-content__subtitle">Currency Converter Application for Desktop</h2>
+                    <p><strong>Description:</strong> A simple yet effective currency converter application built using JavaFX.
+                        This application allows users to seamlessly convert currencies with a clean and intuitive interface. It
+                        utilizes an updated API to fetch the most current currency exchange rates of the day, parsing the API's
+                        JSON response to perform accurate and reliable conversions.</p>
 
-            <li><strong>How to Run:</strong>
-                <ul>
-                    <li>Ensure execution permissions are set for <code>run.sh</code> using:</li>
-                    <pre>chmod +x run.sh</pre>
-                    <li>Run the following command to execute the application:</li>
-                    <pre>./run.sh or sh run.sh</pre>
-                </ul>
-            </li>
-            </ul>
-            <p><br>You can access the code on my GitHub:
-                <a href="https://github.com/leandrobirth" target="_blank">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </p>
-            <div class="image-container" style="margin-top: 10px;">
-                <img width="349" src="https://github.com/user-attachments/assets/c22bb8c6-f06c-40c3-8837-d00429fe637b"
-                    alt="Currency Converter Application Screenshot 1">
-                <img width="349" src="https://github.com/user-attachments/assets/26a021f1-ff52-43e6-bdf3-313db2aa8936"
-                    alt="Currency Converter Application Screenshot 2">
+                    <h3 class="portfolio-content__subtitle">💻 Technologies Used</h3>
+                    <ul>
+
+                        <table>
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Programming Language</strong></td>
+                                    <td>Java</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>UI Framework</strong></td>
+                                    <td>JavaFX</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>API Integration</strong></td>
+                                    <td>REST API (Currency Exchange API)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>JSON Parsing</strong></td>
+                                    <td>Jackson Library</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Build Tool</strong></td>
+                                    <td>Maven</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Java Version</strong></td>
+                                    <td>Java 21</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </li>
+                    </ul><br>
+
+                    <li><strong>How to Run:</strong>
+                        <ul>
+                            <li>Ensure execution permissions are set for <code>run.sh</code> using:</li>
+                            <pre>chmod +x run.sh</pre>
+                            <li>Run the following command to execute the application:</li>
+                            <pre>./run.sh or sh run.sh</pre>
+                        </ul>
+                    </li>
+                    </ul>
+                    <p><br>You can access the code on my GitHub:
+                        <a href="https://github.com/leandrobirth" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </p>
+                    <div class="image-container" style="margin-top: 10px;">
+                        <img width="349" src="https://github.com/user-attachments/assets/c22bb8c6-f06c-40c3-8837-d00429fe637b"
+                            alt="Currency Converter Application Screenshot 1">
+                        <img width="349" src="https://github.com/user-attachments/assets/26a021f1-ff52-43e6-bdf3-313db2aa8936"
+                            alt="Currency Converter Application Screenshot 2">
+                    </div>
+                </div>
+
+                <!-- ScreenMatch-Phrases -->
+                <div class="portfolio-content__project-box" id="backend-project-screenmatch">
+                    <h2 class="portfolio-content__subtitle">ScreenMatch-Phrases</h2>
+                    <p><strong>Description:</strong> This webpage uses a MySQL database containing famous quotes from movies. It
+                        is powered by a <strong>Java backend</strong> and features a simple front-end for easy navigation and
+                        execution.</p>
+                    <p>Click on the video below to see the website project running with a front-end interface, Java as the
+                        backend using a MySQL
+                        database.</p>
+
+                    <div class="spacer"></div>
+                    <h3 class="portfolio-content__subtitle">💻 Technologies Used</h3>
+                    <h4>Backend Dependencies</h4>
+                    <ul>
+                        <li><strong>Spring Boot Web</strong>: RESTful APIs and web functionalities.</li>
+                        <li><strong>Spring Data JPA</strong>: Simplified data access with ORM.</li>
+                        <li><strong>Spring Boot DevTools</strong>: Development-time tools for faster iterations.</li>
+                        <li><strong>MySQL Connector</strong>: MySQL database integration.</li>
+                        <li><strong>Jakarta Persistence API</strong>: JPA compliance and persistence handling.</li>
+                        <li><strong>Lombok</strong>: Reduces boilerplate code with annotations.</li>
+                    </ul>
+
+                    <p><br>You can access the code on my GitHub:
+                        <a href="https://github.com/LeandroBirth/ScreenMatch-Phrases" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                    </p>
+
+                    <div class="image-container" style="margin-top: 10px;">
+                        <iframe  class=“iframe” width="560" height="315" src="https://www.youtube.com/embed/Vswqc7BBAg8" frameborder="0" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+
+                </div>
             </div>
         </div>
-
-        <!-- ScreenMatch-Phrases -->
-        <div class="portfolio-content__project-box" id="backend-project-screenmatch">
-            <h2 class="portfolio-content__subtitle">ScreenMatch-Phrases</h2>
-            <p><strong>Description:</strong> This webpage uses a MySQL database containing famous quotes from movies. It
-                is powered by a <strong>Java backend</strong> and features a simple front-end for easy navigation and
-                execution.</p>
-            <p>Click on the video below to see the website project running with a front-end interface, Java as the
-                backend using a MySQL
-                database.</p>
-
-            <div class="spacer"></div>
-            <h3 class="portfolio-content__subtitle">💻 Technologies Used</h3>
-            <h4>Backend Dependencies</h4>
-            <ul>
-                <li><strong>Spring Boot Web</strong>: RESTful APIs and web functionalities.</li>
-                <li><strong>Spring Data JPA</strong>: Simplified data access with ORM.</li>
-                <li><strong>Spring Boot DevTools</strong>: Development-time tools for faster iterations.</li>
-                <li><strong>MySQL Connector</strong>: MySQL database integration.</li>
-                <li><strong>Jakarta Persistence API</strong>: JPA compliance and persistence handling.</li>
-                <li><strong>Lombok</strong>: Reduces boilerplate code with annotations.</li>
-            </ul>
-
-            <p><br>You can access the code on my GitHub:
-                <a href="https://github.com/LeandroBirth/ScreenMatch-Phrases" target="_blank">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </p>
-
-            <div class="image-container" style="margin-top: 10px;">
-                <iframe  class=“iframe” width="560" height="315" src="https://www.youtube.com/embed/Vswqc7BBAg8" frameborder="0" 
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-            </div>
-
-        </div>
-    </div>
-</div>
