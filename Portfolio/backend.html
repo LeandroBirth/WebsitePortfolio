@@ -1,6 +1,61 @@
  <div class="portfolio-content">
     <h1 class="portfolio-content__title" style="font-family: 'Fira Code', monospace;">Back-End Portfolio</h1>
     <div class="portfolio-content__projects-container">
+
+     <!-- Tax Files Processing System -->
+<div class="portfolio-content__project-box" id="tax-files-processing-system">
+    <h2 class="portfolio-content__subtitle">Tax Files Processing System</h2>
+    <p><strong>Description:</strong> This is an automated tax document processing system built using N8N for workflow automation, OpenAI, AWS, and Supabase with Postgres for backend and database management. It integrates various technologies and APIs to process and analyze documents, audio, and text data related to tax processing.</p>  
+
+    <p>Additionally, the system is designed to integrate with a WeWeb-based client portal, allowing clients to interact with their tax-related data in a secure and user-friendly environment.</p>
+
+    <div class="image-container" style="margin-top: 10px; display: flex; justify-content: center; gap: 20px;">
+        <img width="400" height="260" src="Styles/tax-processing-system.png" alt="Tax Processing System Workflow" style="border: 2px solid #ccc; padding: 10px;">
+    </div>
+
+    <div class="spacer"></div>
+    <h3 class="portfolio-content__subtitle">Key Workflows</h3>
+
+    <h4>1. Document Processing Workflow</h4>
+    <ul>
+        <li><strong>Monitors</strong> an email inbox or cloud storage for incoming tax documents such as W-2s, 1099s, and invoices.</li>
+        <li><strong>Extracts</strong> attachments and processes images and PDFs.</li>
+        <li><strong>Uses AWS Textract</strong> for OCR to extract text from scanned images.</li>
+        <li><strong>Classifies</strong> document types using AI (via OpenAI’s GPT-3.5-turbo).</li>
+        <li><strong>Stores</strong> document metadata and extracted data in Supabase.</li>
+        <li><strong>Performs similarity search</strong> using document embeddings to flag inconsistencies.</li>
+    </ul>
+
+    <h4>2. Audio Processing Workflow</h4>
+    <ul>
+        <li><strong>Triggers</strong> on new audio files (MP3, WAV) uploaded to cloud storage.</li>
+        <li><strong>Transcribes</strong> audio using Whisper AI or OpenAI Speech-to-Text.</li>
+        <li><strong>Extracts</strong> financial entities (SSNs, tax IDs, income figures) from transcriptions via AI.</li>
+        <li><strong>Stores</strong> transcribed text and extracted financial data in Supabase.</li>
+    </ul>
+
+    <h4>3. Text Processing Workflow</h4>
+    <ul>
+        <li><strong>Monitors</strong> incoming emails for both structured and unstructured tax information.</li>
+        <li><strong>Extracts</strong> text from email bodies and attachments.</li>
+        <li><strong>Uses NLP</strong> to analyze and extract relevant financial data.</li>
+        <li><strong>Stores</strong> extracted tax data in Supabase.</li>
+    </ul>
+
+    <h3 class="portfolio-content__subtitle">Security & Scalability Enhancements</h3>
+    <ul>
+        <li><strong>Secure Credentials:</strong> The repository includes a JSON file for N8N, which defines the workflow UI, but users need to configure their own credentials.</li>
+        <li><strong>Improved Email Handling:</strong> The IMAP email node can be replaced with a more secure alternative that offers enhanced cybersecurity features.</li>
+        <li><strong>Scalability:</strong> The workflow is fully scalable, allowing integration of additional document types, AI models, and security measures.</li>
+    </ul>
+
+    <p><br>You can access the code on my GitHub:
+        <a href="https://github.com/leandrobirth" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+        </a>
+    </p>
+</div>
+
         <!-- Django CRM Project -->
             <div class="portfolio-content__project-box" id="django-crm-management">
                 <h2 class="portfolio-content__subtitle">Django CRM - Management</h2>
