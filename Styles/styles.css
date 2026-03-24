@@ -293,6 +293,8 @@ ul li {
 }
 
 #mobileMenu .menu__dropdown-content {
+  display: block;
+  position: relative;
   background-color: var(--color-mobile-dropdown);
   top: 0;
   left: 0;
