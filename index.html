@@ -18,17 +18,19 @@
   <!-- ===== HEADER ===== -->
   <header class="header header--fixed" role="banner">
     <!-- Mobile hamburger -->
-    <button
+    <div
       id="mobileMenuIcon"
       class="mobile-menu__icon"
+      role="button"
+      tabindex="0"
       aria-label="Toggle navigation menu"
       aria-expanded="false"
       aria-controls="mobileMenuContainer"
     >
-      <span class="mobile-menu__horizontal-bar"></span>
-      <span class="mobile-menu__horizontal-bar"></span>
-      <span class="mobile-menu__horizontal-bar"></span>
-    </button>
+      <div class="mobile-menu__horizontal-bar"></div>
+      <div class="mobile-menu__horizontal-bar"></div>
+      <div class="mobile-menu__horizontal-bar"></div>
+    </div>
 
     <!-- Mobile menu overlay -->
     <div id="mobileMenuContainer" class="mobile-menu__container" role="dialog" aria-label="Mobile navigation">
