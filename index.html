@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Leandro Birth — Full-Stack Developer Portfolio. Back-End, Front-End, UX Design, Data Analysis, and Publications.">
+  <meta name="theme-color" content="#202020">
+  <title>Leandro's Portfolio</title>
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&family=Poppins:wght@600&family=Roboto:wght@400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="Styles/styles.css">
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="header header--fixed" role="banner">
+    <!-- Mobile hamburger -->
+    <button
+      id="mobileMenuIcon"
+      class="mobile-menu__icon"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="mobileMenuContainer"
+    >
+      <span class="mobile-menu__horizontal-bar"></span>
+      <span class="mobile-menu__horizontal-bar"></span>
+      <span class="mobile-menu__horizontal-bar"></span>
+    </button>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobileMenuContainer" class="mobile-menu__container" role="dialog" aria-label="Mobile navigation">
+      <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile navigation">
+        <button class="menu__btn" data-nav="about">About Me</button>
+
+        <div class="menu__dropdown">
+          <button class="menu__btn" aria-haspopup="true" aria-expanded="false">Portfolio</button>
+          <div class="menu__dropdown-content" role="menu">
+            <a href="#" role="menuitem" class="mobile-menu__link" data-portfolio="backend">
+              <i class="fas fa-server" aria-hidden="true"></i> Back-End
+            </a>
+            <a href="#" role="menuitem" class="mobile-menu__link" data-portfolio="frontend">
+              <i class="fas fa-code" aria-hidden="true"></i> Front-End
+            </a>
+            <a href="#" role="menuitem" class="mobile-menu__link" data-portfolio="ux">
+              <i class="fas fa-paint-brush" aria-hidden="true"></i> UX Design
+            </a>
+            <a href="#" role="menuitem" class="mobile-menu__link" data-portfolio="data-analysis">
+              <i class="fas fa-chart-pie" aria-hidden="true"></i> Data Analysis
+            </a>
+            <a href="#" role="menuitem" class="mobile-menu__link" data-portfolio="publications">
+              <i class="fas fa-book" aria-hidden="true"></i> Publications
+            </a>
+          </div>
+        </div>
+
+        <div class="menu__dropdown">
+          <button class="menu__btn" aria-haspopup="true" aria-expanded="false">Contact</button>
+          <div class="menu__dropdown-content" role="menu">
+            <a href="https://www.linkedin.com/in/leandrobirth/" role="menuitem" class="mobile-menu__link" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+            </a>
+            <a href="https://github.com/LeandroBirth" role="menuitem" class="mobile-menu__link" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github" aria-hidden="true"></i> GitHub
+            </a>
+            <a href="https://instagram.com/weareleandro" role="menuitem" class="mobile-menu__link" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
+            </a>
+            <a href="#contact" role="menuitem" class="mobile-menu__link" data-action="contact">
+              <i class="fas fa-envelope" aria-hidden="true"></i> Email
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Desktop header bar -->
+    <div class="header__bottom">
+      <div class="header__left">
+        <nav class="menu" aria-label="Main navigation">
+          <button class="menu__btn" data-nav="about">About Me</button>
+
+          <div class="menu__dropdown">
+            <button class="menu__btn" aria-haspopup="true" aria-expanded="false">Portfolio</button>
+            <div class="menu__dropdown-content" role="menu">
+              <a href="#" role="menuitem" data-portfolio="backend">
+                <i class="fas fa-server" aria-hidden="true"></i> Back-End
+              </a>
+              <a href="#" role="menuitem" data-portfolio="frontend">
+                <i class="fas fa-code" aria-hidden="true"></i> Front-End
+              </a>
+              <a href="#" role="menuitem" data-portfolio="ux">
+                <i class="fas fa-paint-brush" aria-hidden="true"></i> UX Design
+              </a>
+              <a href="#" role="menuitem" data-portfolio="data-analysis">
+                <i class="fas fa-chart-pie" aria-hidden="true"></i> Data Analysis
+              </a>
+              <a href="#" role="menuitem" data-portfolio="publications">
+                <i class="fas fa-book" aria-hidden="true"></i> Publications
+              </a>
+            </div>
+          </div>
+
+          <div class="menu__dropdown">
+            <button class="menu__btn" aria-haspopup="true" aria-expanded="false">Contact</button>
+            <div class="menu__dropdown-content" role="menu">
+              <a href="https://www.linkedin.com/in/leandrobirth/" role="menuitem" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+              </a>
+              <a href="https://github.com/LeandroBirth" role="menuitem" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github" aria-hidden="true"></i> GitHub
+              </a>
+              <a href="https://instagram.com/weareleandro" role="menuitem" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
+              </a>
+              <a href="#contact" role="menuitem" data-action="contact">
+                <i class="fas fa-envelope" aria-hidden="true"></i> Email
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="header__center">
+        <span class="header__bold-name">Leandro Birth.</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="container container--about">
+    <main id="content" role="main">
+      <div class="about">
+        <figure class="about__photo">
+          <img
+            src="Styles/Profilephoto.jpeg"
+            alt="Photo of Leandro Birth"
+            loading="lazy"
+            width="384"
+            height="384"
+          >
+        </figure>
+
+        <div class="about__description">
+          <!-- Slide 1: About Me -->
+          <section id="aboutMe" class="about__slide about__slide--active" aria-label="About Me">
+            <h1 class="about__title1">About Me</h1>
+            <p>"Hey there! I'm Leandro. I hold a bachelor's in Medical Physics. Throughout my degree, I learned to code in languages like Python, which opened my eyes to programming's power in solving real-world problems. I even published a scientific paper using R — pretty cool, right?"</p>
+            <p>While my journey started in healthcare, I've always had a passion for languages—both spoken and programming. I discovered a perfect blend of creativity and logic in full-stack development, which fuels my passion for technology and my love for tackling challenges, prompting me to pivot my career toward programming.</p>
+            <p>I've dedicated my time to learning UX design, front-end, and back-end development. I'm focused on creating engaging experiences, whether through beautiful interfaces or robust back-end functionality. I'm ready to bring my diverse skills and enthusiasm to a team that values innovation and collaboration.</p>
+            <p>Let's build something amazing together!</p>
+          </section>
+
+          <!-- Slide 2: Facts -->
+          <section id="facts" class="about__slide" aria-label="Facts About Me">
+            <h1 class="about__title2">Facts About Me:</h1>
+            <p><strong class="about__strong">Linux Enthusiast –</strong> Using Linux as my primary OS for over two years, running it alongside macOS.</p>
+            <p><strong class="about__strong">Speak Four Languages –</strong> English, Portuguese, Italian, and Brazilian Sign Language.</p>
+            <p><strong class="about__strong">Award Winner –</strong> Won the Best City Comics Award for a project on nature conservation in grade 9.</p>
+            <p><strong class="about__strong">Tennis Learner -</strong> Recently started learning tennis.</p>
+          </section>
+
+          <!-- Slide 3: Contact -->
+          <section id="contact" class="about__slide" aria-label="Contact Information">
+            <h2 class="about__title3">Contact Information</h2>
+            <p>There are several ways in which you can contact me:</p>
+            <ul class="about__list-contact">
+              <li class="about__item-contact">
+                <i class="fas fa-envelope about__icon-contact" aria-hidden="true"></i>
+                <span>Email: </span>
+                <a href="mailto:leandrobirth@proton.me" class="about__link-contact">Get Email</a>
+              </li>
+              <li class="about__item-contact">
+                <i class="fab fa-github about__icon-contact" aria-hidden="true"></i>
+                <span>GitHub: </span>
+                <a href="https://www.github.com/LeandroBirth" target="_blank" rel="noopener noreferrer" class="about__link-contact">github.com/LeandroBirth</a>
+              </li>
+              <li class="about__item-contact">
+                <i class="fab fa-linkedin about__icon-contact" aria-hidden="true"></i>
+                <span>LinkedIn: </span>
+                <a href="https://www.linkedin.com/in/leandrobirth/" target="_blank" rel="noopener noreferrer" class="about__link-contact">linkedin.com/in/LeandroBirth</a>
+              </li>
+              <li class="about__item-contact">
+                <i class="fab fa-instagram about__icon-contact" aria-hidden="true"></i>
+                <span>Instagram: </span>
+                <a href="https://www.instagram.com/weareleandro" target="_blank" rel="noopener noreferrer" class="about__link-contact">instagram.com/weareleandro</a>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Slide navigation -->
+          <nav class="about__navigation" aria-label="Slide navigation">
+            <button class="about__arrow about__arrow--prev" aria-label="Previous slide">&#10094;</button>
+            <button class="about__arrow about__arrow--next" aria-label="Next slide">&#10095;</button>
+          </nav>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" role="contentinfo">
+    <p class="footer__left">Created by: Leandro Birth (Nascimento)</p>
+    <p class="footer__right">Last update: March, 2026</p>
+  </footer>
+
+  <!-- Font Awesome (async, non-blocking) -->
+  <script src="https://kit.fontawesome.com/c866f14262.js" crossorigin="anonymous" defer></script>
+
+  <!-- Application scripts (ES modules) -->
+  <script type="module" src="Code/app.js"></script>
+</body>
+</html>
