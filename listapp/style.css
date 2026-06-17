@@ -1,0 +1,723 @@
+/* ─── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Tokens — Mid-Century Modern Palette ────────────────────── */
+:root {
+  --cream:       #F5F0E8;
+  --cream-dark:  #EBE4D5;
+  --ink:         #1C1A14;
+  --ink-mid:     #3D3A30;
+  --ink-light:   #7A7468;
+  --teak:        #8B5E3C;    /* warm walnut brown */
+  --teak-light:  #C49A6C;
+  --mustard:     #D4A017;    /* avocado-adjacent gold */
+  --mustard-lt:  #ECC84A;
+  --sage:        #4E6B52;    /* atomic-age green */
+  --sage-light:  #85A889;
+  --coral:       #C95F3A;    /* mid-century accent */
+  --coral-light: #E8937A;
+
+  --border:      rgba(28,26,20,0.14);
+  --border-mid:  rgba(28,26,20,0.22);
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+
+  --sidebar-w: 260px;
+  --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─── Base ────────────────────────────────────────────────────── */
+html { font-size: 16px; }
+body {
+  font-family: var(--font-mono);
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle paper grain */
+.paper-texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(28,26,20,0.025) 28px,
+      rgba(28,26,20,0.025) 29px
+    );
+}
+
+/* ─── Layout ──────────────────────────────────────────────────── */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Sidebar ─────────────────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--ink);
+  color: var(--cream);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--mustard) 0%, var(--coral) 50%, var(--sage) 100%);
+}
+
+.sidebar-inner {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.logo-mark {
+  color: var(--mustard);
+  opacity: 0.9;
+}
+
+.app-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+}
+
+.app-title em {
+  font-style: italic;
+  color: var(--mustard);
+}
+
+.app-date {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+
+/* Ornament divider */
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink-light);
+}
+
+.divider-ornament span:not(.diamond) {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.diamond {
+  font-size: 0.5rem;
+  color: var(--mustard);
+}
+
+/* Stats */
+.stats-block {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cream);
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+
+.stat-sep {
+  font-size: 2rem;
+  color: var(--border-mid);
+  align-self: flex-start;
+  margin-top: 0.25rem;
+}
+
+/* Progress */
+.progress-track {
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--mustard), var(--coral));
+  border-radius: 99px;
+  transition: width 0.5s var(--easing-bounce);
+}
+
+/* Legend */
+.sidebar-legend {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--ink-light);
+}
+
+.legend-swatch {
+  width: 24px;
+  height: 3px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+.swatch-done   { background: var(--sage); }
+.swatch-delete { background: var(--coral); }
+
+/* ─── Main ────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 3.5rem;
+  max-width: 780px;
+  gap: 2.5rem;
+}
+
+/* ─── Add Section ─────────────────────────────────────────────── */
+.add-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.add-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+
+.task-input {
+  width: 100%;
+  height: 52px;
+  padding: 0 1.25rem;
+  background: var(--cream);
+  border: 1.5px solid var(--border-mid);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  /* subtle inset shadow like typed paper */
+  box-shadow: inset 0 1px 3px rgba(28,26,20,0.06);
+}
+
+.task-input::placeholder { color: var(--ink-light); }
+
+.task-input:focus {
+  border-color: var(--mustard);
+  box-shadow: inset 0 1px 3px rgba(28,26,20,0.06), 0 0 0 3px rgba(212,160,23,0.12);
+}
+
+.btn-add {
+  height: 52px;
+  padding: 0 1.4rem;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn-add:hover { background: var(--teak); }
+.btn-add:active { transform: scale(0.97); }
+
+/* ─── Section Eyebrow ─────────────────────────────────────────── */
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.eyebrow-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.eyebrow-text {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+
+/* ─── Task Items (Swipe version) ──────────────────────────────── */
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-item {
+  position: relative;
+  height: 64px;
+  background: var(--cream-dark);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  padding: 0 1.25rem;
+  overflow: visible;
+  user-select: none;
+  cursor: grab;
+  transition: transform 0.08s ease-out, background 0.2s, opacity 0.2s;
+  will-change: transform;
+}
+
+.task-item:active:not(.task-done) {
+  cursor: grabbing;
+}
+
+/* Done/Completed task state */
+.task-item.task-done {
+  opacity: 0.5;
+  background: var(--cream);
+  cursor: default;
+}
+
+.task-item.task-done .task-text {
+  text-decoration: line-through;
+  text-decoration-color: var(--sage);
+  color: var(--ink-light);
+}
+
+/* Task picked state - highlighted by Spin wheel */
+.task-item.task-picked {
+  background: var(--mustard-lt);
+  border-color: var(--mustard);
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.15);
+}
+
+.task-item.task-picked::before {
+  content: '⭐';
+  position: absolute;
+  left: 6px;
+  font-size: 0.7rem;
+  animation: star-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes star-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* Swipe action backgrounds */
+.task-swipe-actions {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.swipe-action {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  opacity: 0;
+  transition: opacity 0.15s;
+  padding: 0 1.25rem;
+  white-space: nowrap;
+}
+
+.swipe-done {
+  background: var(--sage);
+  right: 0;
+  justify-content: flex-end;
+}
+
+.swipe-delete {
+  background: var(--coral);
+  left: 0;
+  justify-content: flex-start;
+}
+
+/* Show actions when swiping */
+.task-item.swipe-left-active .swipe-done {
+  opacity: 1;
+}
+
+.task-item.swipe-right-active .swipe-delete {
+  opacity: 1;
+}
+
+/* Task content */
+.task-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  pointer-events: none;
+  padding-right: 1rem;
+  min-width: 0;
+}
+
+.task-text {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Completion animation */
+.task-item.complete {
+  animation: slide-out-left 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.task-item.delete {
+  animation: slide-out-right 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slide-out-left {
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out-right {
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* ─── Empty State ─────────────────────────────────────────────── */
+.empty-state {
+  padding: 3rem 0 1rem;
+  text-align: center;
+}
+
+.empty-headline {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink-mid);
+  margin-bottom: 0.5rem;
+}
+
+.empty-sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--ink-light);
+}
+
+/* ─── Pick Section ────────────────────────────────────────────── */
+.pick-section { }
+
+.pick-stage {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2rem 2.5rem;
+  background: var(--ink);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+/* MCM decorative corner brackets */
+.pick-stage::before,
+.pick-stage::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--mustard);
+  border-style: solid;
+  opacity: 0.5;
+}
+
+.pick-stage::before {
+  top: 10px; left: 10px;
+  border-width: 1.5px 0 0 1.5px;
+}
+
+.pick-stage::after {
+  bottom: 10px; right: 10px;
+  border-width: 0 1.5px 1.5px 0;
+}
+
+.pick-result-wrap {
+  flex: 1;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+}
+
+.pick-idle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pick-idle-text {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(245,240,232,0.35);
+  line-height: 1.4;
+}
+
+.pick-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pick-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mustard);
+}
+
+.pick-card-text {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+/* Spin button */
+.btn-spin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1.5px solid rgba(245,240,232,0.2);
+  border-radius: 50%;
+  width: 88px;
+  height: 88px;
+  cursor: pointer;
+  color: var(--cream);
+  padding: 0;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+.btn-spin:hover {
+  border-color: var(--mustard);
+  background: rgba(212,160,23,0.08);
+}
+
+.btn-spin:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.spin-wheel {
+  transition: transform 0.6s ease;
+}
+
+.spin-wheel.spinning {
+  animation: wheel-spin 0.5s linear infinite;
+}
+
+@keyframes wheel-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spin-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.5);
+}
+
+/* ─── Animations ──────────────────────────────────────────────── */
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-card.entering {
+  animation: card-enter 0.3s var(--easing-bounce) forwards;
+}
+
+@keyframes result-appear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pick-card.appearing {
+  animation: result-appear 0.35s var(--easing-bounce) forwards;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  :root { --sidebar-w: 0px; }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .pick-stage {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .pick-result-wrap {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ─── Utility ─────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ─── Spin animation (used by JS via wheel.style.animation) ───── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(var(--final-degrees, 360deg)); }
+}
+
+/* ─── Focus / A11y ────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--mustard);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
