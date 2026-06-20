@@ -1,1 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Astro Chart</title>
 
+  <!-- ── PWA / iPhone Home Screen ──────────────────────────── -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Astro Chart">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Natal & transit astrological chart wheel for Leandro and Mathew">
+
+  <!-- iPhone home screen icons (SVG-generated inline via JS, fallback PNG via data URI) -->
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="icon-120.png">
+  <!-- Manifest (inline) -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Loading screen ───────────────────────────────────────── -->
+<div id="loading">
+  <div class="logo">✦</div>
+  <div class="spinner"></div>
+  <div class="msg">Loading ephemeris…</div>
+</div>
+
+<!-- ── App Header ───────────────────────────────────────────── -->
+<header class="app-header">
+  <span class="header-logo">✦</span>
+  <div>
+    <div class="header-title">Astro Chart Wheel</div>
+    <div class="header-sub">Placidus · Tropical Zodiac</div>
+  </div>
+</header>
+
+<!-- ── Controls Bar ─────────────────────────────────────────── -->
+<div class="controls-bar">
+  <div class="ctrl-group">
+    <span class="ctrl-label">Profile</span>
+    <select id="sel-profile">
+      <option value="leandro">Leandro</option>
+      <option value="mathew">Mathew</option>
+    </select>
+  </div>
+
+  <div class="ctrl-group">
+    <span class="ctrl-label">View</span>
+    <div class="toggle-group">
+      <button id="btn-natal"   class="active" onclick="setMode('natal')">Natal</button>
+      <button id="btn-transit" onclick="setMode('transit')">+ Transit</button>
+    </div>
+  </div>
+
+  <div class="ctrl-group" id="ctrl-date">
+    <span class="ctrl-label">Transit Date (Toronto)</span>
+    <input type="date" id="inp-date">
+  </div>
+</div>
+
+<!-- ── Main Layout ──────────────────────────────────────────── -->
+<div class="app-main">
+  <div class="chart-area">
+    <svg id="chart-svg" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg"
+         aria-label="Astrological chart wheel"></svg>
+  </div>
+  <aside class="sidebar" id="sidebar"></aside>
+</div>
+
+<!-- ── Astronomy Engine (embedded) ─────────────────────────── -->
+<script src="astronomy.browser.js"></script>
+
+<!-- ── Chart drawing logic ──────────────────────────────────── -->
+<script src="chart.js"></script>
+
+<!-- ── App controller ───────────────────────────────────────── -->
+<script>
+(function () {
+  let curProfile  = 'leandro';
+  let curMode     = 'natal';
+  let curTransits = [];
+
+  function refresh() {
+    renderChart(curProfile, curMode, curTransits);
+    renderSidebar(curProfile, curMode, curTransits);
+  }
+
+  function setMode(mode) {
+    curMode = mode;
+    document.getElementById('btn-natal').classList.toggle('active', mode === 'natal');
+    document.getElementById('btn-transit').classList.toggle('active', mode === 'transit');
+    document.getElementById('ctrl-date').style.display = mode === 'transit' ? 'flex' : 'none';
+    if (mode === 'transit') loadTransits();
+    else refresh();
+  }
+  window.setMode = setMode; // expose for onclick
+
+  function loadTransits() {
+    const dateStr = document.getElementById('inp-date').value;
+    if (!dateStr) { refresh(); return; }
+    try {
+      curTransits = calcTransits(dateStr);
+    } catch (e) {
+      console.error('Transit calc error:', e);
+      curTransits = [];
+    }
+    refresh();
+  }
+
+  document.getElementById('sel-profile').addEventListener('change', function () {
+    curProfile = this.value;
+    if (curMode === 'transit') loadTransits();
+    else refresh();
+  });
+
+  document.getElementById('inp-date').addEventListener('change', function () {
+    if (curMode === 'transit') loadTransits();
+  });
+
+  // Init
+  const now  = new Date();
+  const yyyy = now.getFullYear();
+  const mm   = String(now.getMonth() + 1).padStart(2, '0');
+  const dd   = String(now.getDate()).padStart(2, '0');
+  document.getElementById('inp-date').value = `${yyyy}-${mm}-${dd}`;
+
+  // Hide loading and render when astronomy engine is ready
+  function init() {
+    document.getElementById('loading').style.display = 'none';
+    refresh();
+  }
+
+  // Astronomy engine loads synchronously as a script tag, so it's ready here
+  if (typeof Astronomy !== 'undefined') {
+    init();
+  } else {
+    // Fallback: wait a tick
+    window.addEventListener('load', function () {
+      if (typeof Astronomy !== 'undefined') {
+        init();
+      } else {
+        document.querySelector('#loading .msg').textContent = 'Ephemeris engine failed to load.';
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
