@@ -179,15 +179,17 @@ function drawHouses(prof, asc, rOut, rIn, rCenter) {
 }
 
 // ── Deconfliction ─────────────────────────────────────────────
-// Returns items with .baseAngle (true lon) and .finalAngle (nudged).
-// minSep in SVG degrees.
-function deconflict(items, asc, minSep) {
+// Only nudges when glyphs would genuinely overlap at the glyph radius.
+// minSepDeg: minimum angular separation in SVG degrees at rGlyph.
+// At r≈250, 1° arc ≈ 4.4px. A glyph is ~19px wide ≈ ~4.3°.
+// So two glyphs collide when < ~8° apart; we use 9° as the threshold.
+function deconflict(items, asc, minSepDeg) {
   const arr=items.map(p=>({
     ...p,
     baseAngle: lonToA(p._lon,asc),
     finalAngle:lonToA(p._lon,asc),
   }));
-  for (let pass=0;pass<24;pass++) {
+  for (let pass=0;pass<30;pass++) {
     let moved=false;
     for (let i=0;i<arr.length;i++) {
       for (let j=i+1;j<arr.length;j++) {
@@ -195,8 +197,8 @@ function deconflict(items, asc, minSep) {
         while(diff> 180) diff-=360;
         while(diff<-180) diff+=360;
         const abs=Math.abs(diff);
-        if(abs<minSep && abs>0.001){
-          const push=(minSep-abs)/2+0.4;
+        if(abs<minSepDeg && abs>0.001){
+          const push=(minSepDeg-abs)/2+0.3;
           if(diff>=0){arr[i].finalAngle-=push;arr[j].finalAngle+=push;}
           else       {arr[i].finalAngle+=push;arr[j].finalAngle-=push;}
           moved=true;
@@ -215,24 +217,32 @@ function natalColor(p) {
   return SIGN_COLORS[lonToSignIdx(pLon(p))];
 }
 
+// ── Retrograde/stationary suffix ─────────────────────────────
+// rx: true=retrograde, 'st'=stationary
+function rxSuffix(rx) {
+  if (rx==='st') return ' ST';
+  if (rx)        return ' R';
+  return '';
+}
+
 // ══════════════════════════════════════════════════════════════
 // DRAW NATAL PLANETS
 //
-// Visual model (cross-section of the ring band):
+// Layout at each planet's true longitude angle:
 //
-//   rZodiacIn          rGlyph-20       rGlyph       rGlyph+2
-//       |                  |              |              |
-//   [zodiac ring]---[degree label]---[GLYPH]    <-- all at same angle when no nudge
-//       |____________tick_line____________|
+//   rZodiacIn   rZodiacIn-10   rGlyph-18   rGlyph
+//       |              |            |           |
+//  [zodiac ring] [tick end] [degree label] [GLYPH]
+//                |___tick___|
 //
-// The TICK LINE spans from rZodiacIn all the way out to rGlyph,
-// so the glyph naturally sits at the end of its own tick.
-// When a conjunction forces a nudge, the tick stays at true lon,
-// the glyph moves, and a short dashed leader connects them.
+// Tick is SHORT — just a small notch at the zodiac ring edge (~10px).
+// Glyph sits at rGlyph at the same angle (no offset for un-nudged planets).
+// Dashed leader ONLY drawn when a conjunction forces a nudge (>1° displacement).
 // ══════════════════════════════════════════════════════════════
 function drawNatalPlanets(planets, asc, rGlyph, rZodiacIn) {
   const items =planets.map(p=>({...p,_lon:pLon(p)}));
-  const placed=deconflict(items,asc,16);
+  // ~9° threshold: glyphs are ~19px, at r=250 that's ~4.4°/px → need ~8-9° to not overlap
+  const placed=deconflict(items,asc,9);
   let s='';
 
   for (const p of placed) {
@@ -241,36 +251,31 @@ function drawNatalPlanets(planets, asc, rGlyph, rZodiacIn) {
     const fw    =p.cat==='point'?'400':'500';
     const trueA =p.baseAngle;
     const glyphA=p.finalAngle;
-    const nudged=Math.abs(glyphA-trueA)>2;
+    // Only draw leader if glyph was meaningfully displaced (>1° in SVG coords)
+    const nudged=Math.abs(glyphA-trueA)>1;
 
-    // 1. TICK LINE — spans from zodiac inner ring all the way to glyph radius
-    //    Always drawn at the TRUE longitude angle.
-    //    When not nudged: glyph sits right at its end (perfect alignment).
-    //    When nudged: tick shows true position, dashed leader connects to glyph.
-    const tkStart=polar(trueA, rZodiacIn-1);   // just inside zodiac inner ring
-    const tkEnd  =polar(trueA, rGlyph+2);       // reaches out to glyph level
-    s+=`<line x1="${f(tkStart.x)}" y1="${f(tkStart.y)}" x2="${f(tkEnd.x)}" y2="${f(tkEnd.y)}" stroke="${color}" stroke-width="1" opacity="${nudged?'0.35':'0.6'}"/>`;
+    // 1. SHORT TICK at true longitude — just a small notch at the zodiac ring edge
+    const tkOuter=polar(trueA, rZodiacIn-1);    // at zodiac inner ring
+    const tkInner=polar(trueA, rZodiacIn-11);   // 10px inward = short notch
+    s+=`<line x1="${f(tkOuter.x)}" y1="${f(tkOuter.y)}" x2="${f(tkInner.x)}" y2="${f(tkInner.y)}" stroke="${color}" stroke-width="1.3" opacity="0.8"/>`;
 
+    // 2. Glyph position (nudged only when conjunction)
+    const glyphPos=polar(glyphA,rGlyph);
+
+    // 3. Dashed leader ONLY when nudged
     if (nudged) {
-      // 2a. Dashed leader from tick-end to nudged glyph
-      const glyphPos=polar(glyphA,rGlyph);
-      s+=`<line x1="${f(tkEnd.x)}" y1="${f(tkEnd.y)}" x2="${f(glyphPos.x)}" y2="${f(glyphPos.y)}" stroke="${color}" stroke-width="0.8" stroke-dasharray="2.5,2" opacity="0.55"/>`;
-
-      // 2b. Glyph at nudged angle
-      s+=`<text x="${f(glyphPos.x)}" y="${f(glyphPos.y)}" text-anchor="middle" dominant-baseline="central" font-size="${fsize}" fill="${color}" font-weight="${fw}">${p.g}</text>`;
-
-      // 2c. Degree label follows glyph (just inside it)
-      const lp=polar(glyphA,rGlyph-21);
-      s+=`<text x="${f(lp.x)}" y="${f(lp.y)}" text-anchor="middle" dominant-baseline="central" font-size="8" fill="#9094b0">${Math.floor(p.d)}°${p.r?'ʀ':''}</text>`;
-    } else {
-      // 2a. Glyph at true angle (end of tick)
-      const glyphPos=polar(trueA,rGlyph);
-      s+=`<text x="${f(glyphPos.x)}" y="${f(glyphPos.y)}" text-anchor="middle" dominant-baseline="central" font-size="${fsize}" fill="${color}" font-weight="${fw}">${p.g}</text>`;
-
-      // 2b. Degree label just inside glyph, same angle
-      const lp=polar(trueA,rGlyph-21);
-      s+=`<text x="${f(lp.x)}" y="${f(lp.y)}" text-anchor="middle" dominant-baseline="central" font-size="8" fill="#9094b0">${Math.floor(p.d)}°${p.r?'ʀ':''}</text>`;
+      // Connect tick-inner to glyph with dashed line
+      s+=`<line x1="${f(tkInner.x)}" y1="${f(tkInner.y)}" x2="${f(glyphPos.x)}" y2="${f(glyphPos.y)}" stroke="${color}" stroke-width="0.7" stroke-dasharray="2.5,2" opacity="0.5"/>`;
     }
+
+    // 4. Glyph
+    s+=`<text x="${f(glyphPos.x)}" y="${f(glyphPos.y)}" text-anchor="middle" dominant-baseline="central" font-size="${fsize}" fill="${color}" font-weight="${fw}">${p.g}</text>`;
+
+    // 5. Degree label + R/ST — same angle as glyph, just inside it
+    const degInt=Math.floor(p.d);
+    const suffix=rxSuffix(p.r);
+    const lp=polar(glyphA, rGlyph-21);
+    s+=`<text x="${f(lp.x)}" y="${f(lp.y)}" text-anchor="middle" dominant-baseline="central" font-size="8" fill="#9094b0">${degInt}°${suffix}</text>`;
   }
   return s;
 }
@@ -278,22 +283,21 @@ function drawNatalPlanets(planets, asc, rGlyph, rZodiacIn) {
 // ══════════════════════════════════════════════════════════════
 // DRAW TRANSIT PLANETS
 //
-// Transit glyphs live in a dedicated band OUTSIDE the zodiac ring.
+// Transit glyphs sit in a band OUTSIDE the zodiac ring.
 //
-//   rZodiacIn    rZodiacOut    rGlyph-18    rGlyph     rLabel
-//       |              |            |           |          |
-//   [zodiac ring] [zodiac outer]--[deg label]--[GLYPH]--[deg+min]
-//                      |__________tick_________|
+//   rZodiacOut   rZodiacOut+10   rGlyph-18   rGlyph
+//       |               |             |           |
+//  [zodiac outer] [tick end]  [degree label] [GLYPH]
+//       |_____tick______|
 //
-// Tick spans from outer edge of zodiac ring all the way to rGlyph,
-// so glyph sits at its tick end when not nudged.
+// Same logic: short tick at zodiac outer edge, glyph at rGlyph,
+// dashed leader only when nudged by conjunction.
 // ══════════════════════════════════════════════════════════════
 function drawTransitPlanets(transits, asc, rZodiacOut, rZodiacIn) {
-  const rGlyph =rZodiacOut+30;   // glyph radius, outside zodiac
-  const rLabel =rZodiacOut+50;   // degree+minute label, further out
+  const rGlyph=rZodiacOut+28;   // glyph sits outside zodiac ring
 
   const items =transits.map(p=>({...p,_lon:p.lon}));
-  const placed=deconflict(items,asc,17);
+  const placed=deconflict(items,asc,9);
   let s='';
 
   for (const p of placed) {
@@ -301,32 +305,29 @@ function drawTransitPlanets(transits, asc, rZodiacOut, rZodiacIn) {
     const color='#0f6b8a';
     const trueA =p.baseAngle;
     const glyphA=p.finalAngle;
-    const nudged=Math.abs(glyphA-trueA)>2;
+    const nudged=Math.abs(glyphA-trueA)>1;
 
-    // 1. TICK LINE — spans from zodiac outer ring edge to glyph radius
-    const tkStart=polar(trueA,rZodiacOut-1);   // just inside outer ring edge
-    const tkEnd  =polar(trueA,rGlyph+2);        // reaches to glyph level
-    s+=`<line x1="${f(tkStart.x)}" y1="${f(tkStart.y)}" x2="${f(tkEnd.x)}" y2="${f(tkEnd.y)}" stroke="#0891b2" stroke-width="1.1" opacity="${nudged?'0.3':'0.65'}"/>`;
+    // 1. SHORT TICK at true longitude — notch just outside the zodiac outer ring
+    const tkInner=polar(trueA, rZodiacOut+1);    // at zodiac outer ring
+    const tkOuter=polar(trueA, rZodiacOut+11);   // 10px outward = short notch
+    s+=`<line x1="${f(tkInner.x)}" y1="${f(tkInner.y)}" x2="${f(tkOuter.x)}" y2="${f(tkOuter.y)}" stroke="#0891b2" stroke-width="1.3" opacity="0.8"/>`;
 
-    const d   =lonToDeg(p.lon);
-    const deg =Math.floor(d), min=Math.floor((d%1)*60);
-    const degStr=`${deg}°${String(min).padStart(2,'0')}'${p.rx?'ʀ':''}`;
+    // 2. Glyph position
+    const glyphPos=polar(glyphA,rGlyph);
 
+    // 3. Dashed leader ONLY when nudged
     if (nudged) {
-      // Dashed leader from tick-end to nudged glyph
-      const glyphPos=polar(glyphA,rGlyph);
-      s+=`<line x1="${f(tkEnd.x)}" y1="${f(tkEnd.y)}" x2="${f(glyphPos.x)}" y2="${f(glyphPos.y)}" stroke="#0891b2" stroke-width="0.8" stroke-dasharray="2.5,2" opacity="0.5"/>`;
-      s+=`<text x="${f(glyphPos.x)}" y="${f(glyphPos.y)}" text-anchor="middle" dominant-baseline="central" font-size="${fsize}" fill="${color}" font-weight="500">${p.g}</text>`;
-      // Degree label follows glyph outward
-      const lp=polar(glyphA,rGlyph-20);
-      s+=`<text x="${f(lp.x)}" y="${f(lp.y)}" text-anchor="middle" dominant-baseline="central" font-size="8" fill="#0a7a9a">${degStr}</text>`;
-    } else {
-      // Glyph at true angle (end of tick)
-      const glyphPos=polar(trueA,rGlyph);
-      s+=`<text x="${f(glyphPos.x)}" y="${f(glyphPos.y)}" text-anchor="middle" dominant-baseline="central" font-size="${fsize}" fill="${color}" font-weight="500">${p.g}</text>`;
-      const lp=polar(trueA,rGlyph-20);
-      s+=`<text x="${f(lp.x)}" y="${f(lp.y)}" text-anchor="middle" dominant-baseline="central" font-size="8" fill="#0a7a9a">${degStr}</text>`;
+      s+=`<line x1="${f(tkOuter.x)}" y1="${f(tkOuter.y)}" x2="${f(glyphPos.x)}" y2="${f(glyphPos.y)}" stroke="#0891b2" stroke-width="0.7" stroke-dasharray="2.5,2" opacity="0.5"/>`;
     }
+
+    // 4. Glyph
+    s+=`<text x="${f(glyphPos.x)}" y="${f(glyphPos.y)}" text-anchor="middle" dominant-baseline="central" font-size="${fsize}" fill="${color}" font-weight="500">${p.g}</text>`;
+
+    // 5. Degree label: whole degrees only + R or ST
+    const degInt=Math.floor(lonToDeg(p.lon));
+    const suffix=rxSuffix(p.rx);
+    const lp=polar(glyphA, rGlyph-20);
+    s+=`<text x="${f(lp.x)}" y="${f(lp.y)}" text-anchor="middle" dominant-baseline="central" font-size="8" fill="#0a7a9a">${degInt}°${suffix}</text>`;
   }
   return s;
 }
@@ -357,6 +358,13 @@ const TRANSIT_BODIES=[
   {name:'Pluto',  g:'♇',key:'Pluto'},
 ];
 
+// Daily motion thresholds for stationary detection (°/day)
+// A planet is "stationary" when its daily motion is less than these values
+const STATION_THRESHOLD = {
+  Sun:0, Moon:0, Mercury:0.2, Venus:0.2, Mars:0.1,
+  Jupiter:0.03, Saturn:0.02, Uranus:0.01, Neptune:0.008, Pluto:0.006,
+};
+
 function calcTransits(dateStr) {
   const [y,m,d]=dateStr.split('-').map(Number);
   const utcOffset=(m>=3&&m<=11)?4:5;
@@ -366,14 +374,24 @@ function calcTransits(dateStr) {
     name:b.name, g:b.g,
     lon:getGeocentricLon(b.key,t), rx:false,
   }));
-  const tM=Astronomy.MakeTime(new Date(utcDate.getTime()-2*86400000));
-  const tP=Astronomy.MakeTime(new Date(utcDate.getTime()+2*86400000));
+  // Use 1-day interval for motion detection (more accurate for slow planets)
+  const tM=Astronomy.MakeTime(new Date(utcDate.getTime()-1*86400000));
+  const tP=Astronomy.MakeTime(new Date(utcDate.getTime()+1*86400000));
   for (const b of results) {
     const key=TRANSIT_BODIES.find(x=>x.name===b.name).key;
-    let mot=getGeocentricLon(key,tP)-getGeocentricLon(key,tM);
+    let lonBefore=getGeocentricLon(key,tM);
+    let lonAfter =getGeocentricLon(key,tP);
+    let mot=lonAfter-lonBefore;
     if(mot> 180) mot-=360;
     if(mot<-180) mot+=360;
-    b.rx=mot<0;
+    // Daily motion magnitude
+    const dailyMot=Math.abs(mot)/2;  // divided by 2-day span
+    const threshold=STATION_THRESHOLD[key]||0;
+    if (threshold>0 && dailyMot<threshold) {
+      b.rx='st';  // stationary
+    } else {
+      b.rx=mot<0; // retrograde=true, direct=false
+    }
   }
   const nLon=getMeanNorthNodeLon(utcDate);
   results.push({name:'Node',  g:'☊',lon:nLon,           rx:true });
@@ -443,18 +461,26 @@ function renderSidebar(profKey, mode, transits) {
     const si=lonToSignIdx(pLon(p));
     const color=natalColor(p);
     const gs=(p.name==='Vertex'||p.name==='S.Node')?'0.82rem':'1rem';
+    // Whole degrees only in sidebar too
+    const degInt=Math.floor(p.d);
+    const minInt=Math.floor((p.d%1)*60);
+    const posStr=`${p.sign} ${degInt}°${String(minInt).padStart(2,'0')}'`;
     h+=`<div class="planet-row">
       <span class="p-glyph" style="color:${color};font-size:${gs}">${p.g}</span>
       <span class="p-name">${p.name}</span>
-      <span class="p-pos" style="color:${SIGN_COLORS[si]}">${p.sign} ${fmtDeg(p.d)}</span>
+      <span class="p-pos" style="color:${SIGN_COLORS[si]}">${posStr}</span>
       <span class="p-house">H${p.h}</span>
-      ${p.r?'<span class="p-retro">ʀ</span>':''}
+      ${p.r?'<span class="p-retro">R</span>':''}
     </div>`;
   }
   h+=`<div class="sb-divider"></div>`;
   h+=`<div class="sb-section-title">Angles</div>`;
-  h+=`<div class="planet-row"><span class="p-glyph" style="color:#4a6fa5">AC</span><span class="p-name">Ascendant</span><span class="p-pos" style="color:#4a6fa5">${prof.ascSign} ${fmtDeg(prof.ascDeg)}</span></div>`;
-  h+=`<div class="planet-row"><span class="p-glyph" style="color:#4a6fa5">MC</span><span class="p-name">Midheaven</span><span class="p-pos" style="color:#4a6fa5">${prof.mcSign} ${fmtDeg(prof.mcDeg)}</span></div>`;
+  const asc=ascLon(prof);
+  const mc=mcLon(prof);
+  const ascDegStr=`${prof.ascSign} ${Math.floor(prof.ascDeg)}°${String(Math.floor((prof.ascDeg%1)*60)).padStart(2,'0')}'`;
+  const mcDegStr =`${prof.mcSign} ${Math.floor(prof.mcDeg)}°${String(Math.floor((prof.mcDeg%1)*60)).padStart(2,'0')}'`;
+  h+=`<div class="planet-row"><span class="p-glyph" style="color:#4a6fa5">AC</span><span class="p-name">Ascendant</span><span class="p-pos" style="color:#4a6fa5">${ascDegStr}</span></div>`;
+  h+=`<div class="planet-row"><span class="p-glyph" style="color:#4a6fa5">MC</span><span class="p-name">Midheaven</span><span class="p-pos" style="color:#4a6fa5">${mcDegStr}</span></div>`;
   if (mode==='transit'&&transits&&transits.length>0) {
     h+=`<div class="sb-divider"></div>`;
     h+=`<div class="transit-label">✦ Transit · Toronto</div>`;
@@ -462,11 +488,15 @@ function renderSidebar(profKey, mode, transits) {
     for (const tp of transits) {
       const si=lonToSignIdx(tp.lon);
       const gs=(tp.name==='S.Node'||tp.name==='Node')?'0.85rem':'1rem';
+      const d=lonToDeg(tp.lon);
+      const posStr=`${SIGNS[si]} ${Math.floor(d)}°${String(Math.floor((d%1)*60)).padStart(2,'0')}'`;
+      // rx label: 'st'→ST, true→R, false→''
+      const rxLabel=tp.rx==='st'?' <span class="p-retro">ST</span>':tp.rx?' <span class="p-retro">R</span>':'';
       h+=`<div class="planet-row">
         <span class="p-glyph" style="color:#0891b2;font-size:${gs}">${tp.g}</span>
         <span class="p-name">${tp.name}</span>
-        <span class="p-pos" style="color:${SIGN_COLORS[si]}">${SIGNS[si]} ${fmtDeg(lonToDeg(tp.lon))}</span>
-        ${tp.rx?'<span class="p-retro">ʀ</span>':''}
+        <span class="p-pos" style="color:${SIGN_COLORS[si]}">${posStr}</span>
+        ${rxLabel}
       </div>`;
     }
   }
@@ -475,6 +505,7 @@ function renderSidebar(profKey, mode, transits) {
   for (const [label,color] of [['Fire','#b91c1c'],['Earth','#15803d'],['Air','#1d4ed8'],['Water','#6d28d9']]) {
     h+=`<div class="legend-row"><svg width="14" height="14" style="flex-shrink:0"><circle cx="7" cy="7" r="5.5" fill="${color}" opacity="0.7"/></svg>${label} signs</div>`;
   }
+  h+=`<div class="legend-row" style="margin-top:4px;color:#888"><span style="font-size:0.68rem;margin-right:4px">R</span>Retrograde &nbsp; <span style="font-size:0.68rem;margin-right:4px">ST</span>Stationary</div>`;
   if (mode==='transit') {
     h+=`<div class="legend-row" style="color:#0f6b8a;margin-top:3px"><svg width="14" height="14" style="flex-shrink:0"><text x="2" y="12" font-size="12" fill="#0891b2">✦</text></svg>Transit planets</div>`;
   }
