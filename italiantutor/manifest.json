@@ -1,0 +1,24 @@
+{
+  "name": "Parla Italiano",
+  "short_name": "Parla Italiano",
+  "description": "Il tuo insegnante di italiano virtuale con AI",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F0F0F0",
+  "theme_color": "#FF6B35",
+  "icons": [
+    {
+      "src": "parla-italiano-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "parla-italiano-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
