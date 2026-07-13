@@ -1,11 +1,12 @@
 (() => {
   const { useState, useRef, useEffect, useCallback } = React;
+  const FREE_TOPIC = "\u270F\uFE0F Argomento libero...";
   const TOPICS = {
-    A1: ["Presentarsi e salutare", "Ordinare al ristorante", "La routine quotidiana", "La famiglia e gli amici", "I numeri e l'ora", "I colori e i vestiti", "Al supermercato", "Chiedere il prezzo", "Le stagioni e il tempo", "Il cibo e le bevande", "La casa e le stanze", "I giorni della settimana"],
-    A2: ["Chiedere indicazioni stradali", "Fare la spesa al mercato", "Raccontare il fine settimana", "Dal dottore", "Prenotare un albergo", "Descrivere una persona", "I mezzi di trasporto", "Comprare un biglietto del treno", "Al ristorante: lamentarsi educatamente", "Parlare del tempo libero", "Fare acquisti in un negozio", "Raccontare una vacanza passata"],
-    B1: ["Progetti per il futuro", "Parlare di un film o libro", "Esperienze di viaggio", "Cercare lavoro e il colloquio", "L'importanza dell'istruzione", "Le abitudini alimentari italiane", "Organizzare una festa", "Le tradizioni italiane", "Descrivere la propria citt\xE0", "Parlare di salute e benessere", "Confrontare culture diverse", "La tecnologia nella vita quotidiana"],
-    B2: ["Discutere di problemi ambientali", "L'equilibrio tra lavoro e vita privata", "Situazioni ipotetiche (condizionale)", "Il sistema sanitario italiano", "Il ruolo dei social media", "La globalizzazione e le sue conseguenze", "L'immigrazione in Italia", "La cucina regionale e la sua storia", "Il cinema italiano neorealista", "Etica e intelligenza artificiale", "La crisi abitativa nelle grandi citt\xE0", "Il volontariato e l'impegno sociale"],
-    C1: ["Arte astratta e movimenti artistici", "Sistemi politici a confronto", "Analisi di modi di dire e idiomi", "Ipotesi complesse con il congiuntivo", "La letteratura italiana contemporanea", "Questioni bioetiche", "La filosofia del linguaggio", "L'evoluzione della lingua italiana", "Retorica e persuasione nel discorso pubblico", "Il concetto di identit\xE0 culturale", "Analisi critica di un articolo di giornale", "La satira nella societ\xE0 italiana"]
+    A1: ["Presentarsi e salutare", "Ordinare al ristorante", "La routine quotidiana", "La famiglia e gli amici", "I numeri e l'ora", "I colori e i vestiti", "Al supermercato", "Chiedere il prezzo", "Le stagioni e il tempo", "Il cibo e le bevande", "La casa e le stanze", "I giorni della settimana", FREE_TOPIC],
+    A2: ["Chiedere indicazioni stradali", "Fare la spesa al mercato", "Raccontare il fine settimana", "Dal dottore", "Prenotare un albergo", "Descrivere una persona", "I mezzi di trasporto", "Comprare un biglietto del treno", "Al ristorante: lamentarsi educatamente", "Parlare del tempo libero", "Fare acquisti in un negozio", "Raccontare una vacanza passata", FREE_TOPIC],
+    B1: ["Progetti per il futuro", "Parlare di un film o libro", "Esperienze di viaggio", "Cercare lavoro e il colloquio", "L'importanza dell'istruzione", "Le abitudini alimentari italiane", "Organizzare una festa", "Le tradizioni italiane", "Descrivere la propria citt\xE0", "Parlare di salute e benessere", "Confrontare culture diverse", "La tecnologia nella vita quotidiana", FREE_TOPIC],
+    B2: ["Discutere di problemi ambientali", "L'equilibrio tra lavoro e vita privata", "Situazioni ipotetiche (condizionale)", "Il sistema sanitario italiano", "Il ruolo dei social media", "La globalizzazione e le sue conseguenze", "L'immigrazione in Italia", "La cucina regionale e la sua storia", "Il cinema italiano neorealista", "Etica e intelligenza artificiale", "La crisi abitativa nelle grandi citt\xE0", "Il volontariato e l'impegno sociale", FREE_TOPIC],
+    C1: ["Arte astratta e movimenti artistici", "Sistemi politici a confronto", "Analisi di modi di dire e idiomi", "Ipotesi complesse con il congiuntivo", "La letteratura italiana contemporanea", "Questioni bioetiche", "La filosofia del linguaggio", "L'evoluzione della lingua italiana", "Retorica e persuasione nel discorso pubblico", "Il concetto di identit\xE0 culturale", "Analisi critica di un articolo di giornale", "La satira nella societ\xE0 italiana", FREE_TOPIC]
   };
   const LBL = { A1: "Principiante", A2: "Elementare", B1: "Intermedio", B2: "Intermedio Sup.", C1: "Avanzato" };
   const EMJ = { A1: "\u{1F331}", A2: "\u{1F33F}", B1: "\u{1F333}", B2: "\u{1F525}", C1: "\u2B50" };
@@ -45,36 +46,57 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
     const m = (msg || "").toLowerCase();
     if (status === 429 || /quota|rate.?limit|resource.?exhaust|too many/i.test(m)) {
       return {
-        title: "Limite di utilizzo raggiunto \u{1F6D1}",
-        message: "Hai superato il limite di richieste dell'API. Aspetta un minuto e riprova. Se il problema persiste, prova un modello diverso nelle impostazioni.",
-        isRate: true
+        title: "Limite raggiunto",
+        message: "Hai superato il limite di richieste. Aspetta un minuto e riprova.",
+        isRate: true,
+        autoDismiss: false
+      };
+    }
+    if (/not found|not supported|no longer available/i.test(m)) {
+      return {
+        title: "Modello non disponibile",
+        message: "Questo modello non e' disponibile. Prova a selezionarne un altro nelle impostazioni (prima di inserire la chiave API).",
+        isRate: false,
+        autoDismiss: false
       };
     }
     if (status === 400 || /invalid|api.?key|authenticate/i.test(m)) {
       return {
-        title: "Chiave API non valida \u26A0\uFE0F",
-        message: "Controlla di aver copiato bene la chiave da Google AI Studio. Deve iniziare con 'AIza'.",
-        isRate: false
+        title: "Chiave non valida",
+        message: "Controlla di aver copiato bene la chiave da Google AI Studio.",
+        isRate: false,
+        autoDismiss: false
       };
     }
     if (status === 403 || /permission|forbidden/i.test(m)) {
       return {
-        title: "Accesso negato \u{1F512}",
-        message: "La chiave non ha i permessi necessari. Vai su Google AI Studio e verifica che l'API Generative Language sia abilitata.",
-        isRate: false
+        title: "Accesso negato",
+        message: "La chiave non ha i permessi necessari. Verifica il progetto su Google AI Studio.",
+        isRate: false,
+        autoDismiss: false
       };
     }
     if (/network|fetch|failed|timeout|abort/i.test(m)) {
       return {
-        title: "Errore di rete \u{1F4E1}",
-        message: "Impossibile raggiungere il server. Controlla la connessione internet e riprova.",
-        isRate: false
+        title: "Errore di rete",
+        message: "Controlla la connessione internet e riprova.",
+        isRate: false,
+        autoDismiss: true
+      };
+    }
+    if (/json|parse|format|unexpected token/i.test(m)) {
+      return {
+        title: "Risposta non valida",
+        message: "L'AI ha risposto in un formato inatteso. Riprova \u2014 di solito si risolve da solo.",
+        isRate: false,
+        autoDismiss: true
       };
     }
     return {
-      title: "Errore imprevisto",
-      message: msg || "Si \xE8 verificato un errore. Riprova tra qualche istante.",
-      isRate: false
+      title: "Errore",
+      message: msg || "Si e' verificato un errore. Riprova.",
+      isRate: false,
+      autoDismiss: true
     };
   }
   function Btn({ children, color, dk, tc = "white", onClick, disabled, small, full }) {
@@ -139,6 +161,7 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
     const [model, setModel] = useState(GEMINI_MODELS[0].id);
     const [level, setLevel] = useState("A1");
     const [topic, setTopic] = useState(TOPICS.A1[0]);
+    const [customTopic, setCustomTopic] = useState("");
     const [msgs, setMsgs] = useState([]);
     const [listening, setListening] = useState(false);
     const [speaking, setSpeaking] = useState(false);
@@ -154,6 +177,14 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
     const [showSugs, setShowSugs] = useState(false);
     const [speakingId, setSpeakingId] = useState(null);
     const [error, setError] = useState(null);
+    const errTimerRef = useRef(null);
+    const setErrorSafe = useCallback((err) => {
+      if (errTimerRef.current) clearTimeout(errTimerRef.current);
+      setError(err);
+      if (err && err.autoDismiss) {
+        errTimerRef.current = setTimeout(() => setError(null), 6e3);
+      }
+    }, []);
     const [interim, setInterim] = useState("");
     const [showEndConfirm, setShowEndConfirm] = useState(false);
     const [turns, setTurns] = useState(0);
@@ -172,7 +203,9 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
     }, [msgs, suggestions, loading, error, scrollToBottom]);
     useEffect(() => {
       setTopic(TOPICS[level][0]);
+      setCustomTopic("");
     }, [level]);
+    const effectiveTopic = topic === FREE_TOPIC ? customTopic.trim() || "Conversazione libera" : topic;
     useEffect(() => {
       var _a2, _b2, _c;
       (_a2 = window.speechSynthesis) == null ? void 0 : _a2.getVoices();
@@ -297,7 +330,7 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
       setShowSugs(false);
       setSuggestions([]);
       try {
-        const result = await callGemini(text, sysPrompt(level, topic));
+        const result = await callGemini(text, sysPrompt(level, effectiveTopic));
         const teacherMsg = {
           id: Date.now() + 1,
           role: "teacher",
@@ -315,11 +348,11 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
         }
         speak(result.teacher_reply, teacherMsg.id);
       } catch (err) {
-        setError(err.title ? err : parseError(err.message || String(err)));
+        setErrorSafe(err.title ? err : parseError(err.message || String(err)));
       } finally {
         setLoading(false);
       }
-    }, [confirmed, level, topic, callGemini, speak]);
+    }, [confirmed, level, effectiveTopic, callGemini, speak]);
     const handleMsgRef = useRef(handleUserMessage);
     useEffect(() => {
       handleMsgRef.current = handleUserMessage;
@@ -329,7 +362,7 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
     const startListening = useCallback(() => {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        setError(parseError("Riconoscimento vocale non supportato. Usa Chrome o Safari."));
+        setErrorSafe(parseError("Riconoscimento vocale non supportato. Usa Chrome o Safari."));
         return;
       }
       stopSpeaking();
@@ -337,37 +370,49 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
       lastTranscriptRef.current = "";
       const recognition = new SpeechRecognition();
       recognition.lang = "it-IT";
-      recognition.continuous = false;
+      recognition.continuous = true;
       recognition.interimResults = true;
       recognition.onresult = (event) => {
-        let fullTranscript = "";
+        if (sentRef.current) return;
+        const lastIdx = event.results.length - 1;
+        const lastResult = event.results[lastIdx];
+        let fullText = "";
         for (let i = 0; i < event.results.length; i++) {
-          fullTranscript += event.results[i][0].transcript;
+          fullText += event.results[i][0].transcript;
         }
-        lastTranscriptRef.current = fullTranscript;
-        const lastResult = event.results[event.results.length - 1];
-        if (lastResult && lastResult.isFinal && !sentRef.current) {
-          sentRef.current = true;
-          setInterim("");
-          console.log("[STT] Final:", JSON.stringify(fullTranscript.trim()));
-          handleMsgRef.current(fullTranscript.trim());
-        } else if (!sentRef.current) {
-          setInterim(fullTranscript);
+        lastTranscriptRef.current = fullText;
+        if (lastResult.isFinal) {
+          setInterim(fullText);
+        } else {
+          setInterim(fullText);
         }
       };
       recognition.onerror = (e) => {
         setListening(false);
         setInterim("");
         if (e.error !== "aborted" && e.error !== "no-speech") {
-          setError(parseError("Errore microfono: " + e.error));
+          setErrorSafe(parseError("Errore microfono: " + e.error));
         }
       };
       recognition.onend = () => {
+        if (listening && !sentRef.current) {
+          try {
+            recognition.start();
+          } catch (e) {
+            setListening(false);
+            setInterim("");
+            if (lastTranscriptRef.current.trim()) {
+              sentRef.current = true;
+              handleMsgRef.current(lastTranscriptRef.current.trim());
+            }
+          }
+          return;
+        }
         setListening(false);
         setInterim("");
         if (!sentRef.current && lastTranscriptRef.current.trim()) {
           sentRef.current = true;
-          console.log("[STT] Fallback:", JSON.stringify(lastTranscriptRef.current.trim()));
+          console.log("[STT] Sent:", JSON.stringify(lastTranscriptRef.current.trim()));
           handleMsgRef.current(lastTranscriptRef.current.trim());
         }
       };
@@ -375,17 +420,30 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
       recognition.start();
       setListening(true);
     }, []);
-    const stopListening = () => {
-      setListening(false);
-      setTimeout(() => {
+    const toggleListening = useCallback(() => {
+      if (listening) {
+        setListening(false);
         if (recogRef.current) {
           try {
             recogRef.current.stop();
           } catch (e) {
           }
         }
-      }, 300);
-    };
+        setTimeout(() => {
+          if (!sentRef.current && lastTranscriptRef.current.trim()) {
+            sentRef.current = true;
+            const text = lastTranscriptRef.current.trim();
+            setInterim("");
+            console.log("[STT] Toggle-stop sent:", JSON.stringify(text));
+            handleMsgRef.current(text);
+          } else {
+            setInterim("");
+          }
+        }, 200);
+      } else {
+        startListening();
+      }
+    }, [listening, startListening]);
     const startLesson = async () => {
       var _a2;
       if (!confirmed) return;
@@ -402,8 +460,8 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
       setShowEndConfirm(false);
       setShowSetup(false);
       try {
-        const openingPrompt = `Inizia la lezione sull'argomento "${topic}" per uno studente di livello ${level}. Presentati brevemente come insegnante e fai una prima domanda sull'argomento per avviare la conversazione. Poich\xE9 lo studente non ha ancora parlato, had_error deve essere false e correction_details deve essere null.`;
-        const result = await callGemini(openingPrompt, sysPrompt(level, topic));
+        const openingPrompt = `Inizia la lezione sull'argomento "${effectiveTopic}" per uno studente di livello ${level}. Presentati brevemente come insegnante e fai una prima domanda sull'argomento per avviare la conversazione. Poich\xE9 lo studente non ha ancora parlato, had_error deve essere false e correction_details deve essere null.`;
+        const result = await callGemini(openingPrompt, sysPrompt(level, effectiveTopic));
         const msg = {
           id: Date.now(),
           role: "teacher",
@@ -415,7 +473,7 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
         if ((_a2 = result.vocabulary_words) == null ? void 0 : _a2.length) setVocab(result.vocabulary_words);
         speak(result.teacher_reply, msg.id);
       } catch (err) {
-        setError(err.title ? err : parseError(err.message || String(err)));
+        setErrorSafe(err.title ? err : parseError(err.message || String(err)));
         setLessonOn(false);
       } finally {
         setLoading(false);
@@ -437,7 +495,7 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
         setLessonOn(false);
         setLessonDone(true);
       } catch (err) {
-        setError(err.title ? err : parseError(err.message || String(err)));
+        setErrorSafe(err.title ? err : parseError(err.message || String(err)));
         setLessonOn(false);
         setLessonDone(true);
       } finally {
@@ -462,14 +520,14 @@ Rispondi SOLO con JSON valido (no markdown, no backtick):
       setLoading(true);
       try {
         const lastTeacher = ((_a2 = historyRef.current.filter((m) => m.role === "teacher").pop()) == null ? void 0 : _a2.text) || topic;
-        const prompt = `Lo studente di livello ${level} \xE8 bloccato e non sa cosa rispondere. L'ultimo messaggio dell'insegnante era: "${lastTeacher}". L'argomento \xE8 "${topic}".
+        const prompt = `Lo studente di livello ${level} \xE8 bloccato e non sa cosa rispondere. L'ultimo messaggio dell'insegnante era: "${lastTeacher}". L'argomento \xE8 "${effectiveTopic}".
 Genera 3 possibili risposte in italiano che lo studente potrebbe dare, adatte al livello ${level}.
 Rispondi SOLO con JSON valido: {"suggestions":["risposta 1","risposta 2","risposta 3"]}`;
         const result = await callGemini(prompt, null);
         setSuggestions(result.suggestions || []);
         setShowSugs(true);
       } catch (err) {
-        setError(err.title ? err : parseError(err.message || String(err)));
+        setErrorSafe(err.title ? err : parseError(err.message || String(err)));
       } finally {
         setLoading(false);
       }
@@ -534,7 +592,31 @@ Rispondi SOLO con JSON valido: {"suggestions":["risposta 1","risposta 2","rispos
         onClick: () => setSpeechRate(speechRate === 1 ? 0.7 : 1)
       },
       speechRate === 1 ? "\u{1F407} Normale" : "\u{1F422} Lento"
-    ), /* @__PURE__ */ React.createElement("div", { className: "controls-right" }, !lessonOn && !lessonDone && /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B35", dk: "#E55A28", small: true, onClick: startLesson, disabled: loading }, "\u{1F3AC} Inizia"), lessonOn && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Btn, { color: "#7C5CFC", dk: "#6344E0", small: true, onClick: stopSpeaking }, "\u23F8\uFE0F"), /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B6B", dk: "#E55555", small: true, onClick: () => setShowEndConfirm(true), disabled: loading }, "\u{1F3C1} Termina")), lessonDone && /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B35", dk: "#E55A28", small: true, onClick: resetLesson }, "\u{1F504} Nuova"))), showSetup && !lessonOn && !lessonDone && /* @__PURE__ */ React.createElement("div", { className: "setup-panel" }, /* @__PURE__ */ React.createElement("div", { className: "setup-field level" }, /* @__PURE__ */ React.createElement("label", { className: "setup-label" }, "Livello"), /* @__PURE__ */ React.createElement("select", { className: "setup-select", value: level, onChange: (e) => setLevel(e.target.value) }, Object.keys(TOPICS).map((l) => /* @__PURE__ */ React.createElement("option", { key: l, value: l }, EMJ[l], " ", l, " \u2014 ", LBL[l])))), /* @__PURE__ */ React.createElement("div", { className: "setup-field topic" }, /* @__PURE__ */ React.createElement("label", { className: "setup-label" }, "Argomento"), /* @__PURE__ */ React.createElement("select", { className: "setup-select topic-select", value: topic, onChange: (e) => setTopic(e.target.value) }, TOPICS[level].map((t) => /* @__PURE__ */ React.createElement("option", { key: t, value: t }, t)))))), showEndConfirm && /* @__PURE__ */ React.createElement("div", { className: "end-confirm" }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 28 } }, "\u{1F3C1}"), /* @__PURE__ */ React.createElement("p", null, "Terminare la lezione e ricevere la valutazione?"), /* @__PURE__ */ React.createElement("div", { className: "end-confirm-btns" }, /* @__PURE__ */ React.createElement(Btn, { color: "#E5E5EA", dk: "#D1D1D6", tc: "#2D2D2D", small: true, onClick: () => setShowEndConfirm(false) }, "Continua"), /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B6B", dk: "#E55555", small: true, onClick: endLesson }, "S\xEC, Termina"))), /* @__PURE__ */ React.createElement("div", { className: "chat-scroll" }, msgs.length === 0 && !loading && /* @__PURE__ */ React.createElement("div", { className: "empty-state" }, /* @__PURE__ */ React.createElement("div", { className: "empty-emoji" }, "\u{1F393}"), /* @__PURE__ */ React.createElement("p", { className: "empty-title" }, confirmed ? "Pronto per imparare? \u{1F680}" : "Inserisci la chiave API per iniziare"), confirmed && /* @__PURE__ */ React.createElement("p", { className: "empty-sub" }, "Scegli livello e argomento, poi premi Inizia")), msgs.map((m) => /* @__PURE__ */ React.createElement("div", { key: m.id, className: `msg-row ${m.role}` }, m.role === "teacher" && /* @__PURE__ */ React.createElement("div", { className: "avatar teacher" }, "\u{1F469}\u200D\u{1F3EB}"), /* @__PURE__ */ React.createElement("div", { className: "msg-wrap" }, /* @__PURE__ */ React.createElement("div", { className: `bubble ${m.role}` }, speakingId === m.id && /* @__PURE__ */ React.createElement("div", { className: "wave-bars" }, [0, 1, 2, 3].map((i) => /* @__PURE__ */ React.createElement(
+    ), /* @__PURE__ */ React.createElement("div", { className: "controls-right" }, !lessonOn && !lessonDone && /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B35", dk: "#E55A28", small: true, onClick: startLesson, disabled: loading }, "\u{1F3AC} Inizia"), lessonOn && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Btn, { color: "#7C5CFC", dk: "#6344E0", small: true, onClick: stopSpeaking }, "\u23F8\uFE0F"), /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B6B", dk: "#E55555", small: true, onClick: () => setShowEndConfirm(true), disabled: loading }, "\u{1F3C1} Termina")), lessonDone && /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B35", dk: "#E55A28", small: true, onClick: resetLesson }, "\u{1F504} Nuova"))), showSetup && !lessonOn && !lessonDone && /* @__PURE__ */ React.createElement("div", { className: "setup-panel" }, /* @__PURE__ */ React.createElement("div", { className: "setup-field level" }, /* @__PURE__ */ React.createElement("label", { className: "setup-label" }, "Livello"), /* @__PURE__ */ React.createElement("select", { className: "setup-select", value: level, onChange: (e) => setLevel(e.target.value) }, Object.keys(TOPICS).map((l) => /* @__PURE__ */ React.createElement("option", { key: l, value: l }, EMJ[l], " ", l, " \u2014 ", LBL[l])))), /* @__PURE__ */ React.createElement("div", { className: "setup-field topic" }, /* @__PURE__ */ React.createElement("label", { className: "setup-label" }, "Argomento"), /* @__PURE__ */ React.createElement("select", { className: "setup-select topic-select", value: topic, onChange: (e) => {
+      setTopic(e.target.value);
+      if (e.target.value !== FREE_TOPIC) setCustomTopic("");
+    } }, TOPICS[level].map((t) => /* @__PURE__ */ React.createElement("option", { key: t, value: t }, t)))), topic === FREE_TOPIC && /* @__PURE__ */ React.createElement("div", { style: { flex: "1 1 100%", minWidth: 0 } }, /* @__PURE__ */ React.createElement("label", { className: "setup-label" }, "Di cosa vuoi parlare?"), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "text",
+        value: customTopic,
+        onChange: (e) => setCustomTopic(e.target.value),
+        placeholder: "Es: Il mio viaggio in Sicilia, la pizza napoletana...",
+        style: {
+          width: "100%",
+          padding: "8px 10px",
+          borderRadius: 12,
+          border: "2px solid #E5E5EA",
+          background: "#FAFAFA",
+          fontSize: 14,
+          fontWeight: 600,
+          fontFamily: "inherit",
+          outline: "none"
+        },
+        onFocus: (e) => e.target.style.borderColor = "#FF6B35",
+        onBlur: (e) => e.target.style.borderColor = "#E5E5EA"
+      }
+    )))), showEndConfirm && /* @__PURE__ */ React.createElement("div", { className: "end-confirm" }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 28 } }, "\u{1F3C1}"), /* @__PURE__ */ React.createElement("p", null, "Terminare la lezione e ricevere la valutazione?"), /* @__PURE__ */ React.createElement("div", { className: "end-confirm-btns" }, /* @__PURE__ */ React.createElement(Btn, { color: "#E5E5EA", dk: "#D1D1D6", tc: "#2D2D2D", small: true, onClick: () => setShowEndConfirm(false) }, "Continua"), /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B6B", dk: "#E55555", small: true, onClick: endLesson }, "S\xEC, Termina"))), /* @__PURE__ */ React.createElement("div", { className: "chat-scroll" }, msgs.length === 0 && !loading && /* @__PURE__ */ React.createElement("div", { className: "empty-state" }, /* @__PURE__ */ React.createElement("div", { className: "empty-emoji" }, "\u{1F393}"), /* @__PURE__ */ React.createElement("p", { className: "empty-title" }, confirmed ? "Pronto per imparare? \u{1F680}" : "Inserisci la chiave API per iniziare"), confirmed && /* @__PURE__ */ React.createElement("p", { className: "empty-sub" }, "Scegli livello e argomento, poi premi Inizia")), msgs.map((m) => /* @__PURE__ */ React.createElement("div", { key: m.id, className: `msg-row ${m.role}` }, m.role === "teacher" && /* @__PURE__ */ React.createElement("div", { className: "avatar teacher" }, "\u{1F469}\u200D\u{1F3EB}"), /* @__PURE__ */ React.createElement("div", { className: "msg-wrap" }, /* @__PURE__ */ React.createElement("div", { className: `bubble ${m.role}` }, speakingId === m.id && /* @__PURE__ */ React.createElement("div", { className: "wave-bars" }, [0, 1, 2, 3].map((i) => /* @__PURE__ */ React.createElement(
       "div",
       {
         key: i,
@@ -594,18 +676,15 @@ Rispondi SOLO con JSON valido: {"suggestions":["risposta 1","risposta 2","rispos
       "button",
       {
         className: `mic-btn ${listening ? "active" : "idle"}`,
-        onMouseDown: startListening,
-        onMouseUp: stopListening,
-        onTouchStart: (e) => {
+        onClick: (e) => {
           e.preventDefault();
-          startListening();
+          toggleListening();
         },
-        onTouchEnd: stopListening,
         disabled: loading || speaking
       },
       listening && /* @__PURE__ */ React.createElement("div", { className: "mic-ring" }),
-      /* @__PURE__ */ React.createElement("svg", { width: "24", height: "24", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2.5" }, /* @__PURE__ */ React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" }), /* @__PURE__ */ React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M19 10v2a7 7 0 01-14 0v-2" }), /* @__PURE__ */ React.createElement("line", { x1: "12", y1: "19", x2: "12", y2: "23" }), /* @__PURE__ */ React.createElement("line", { x1: "8", y1: "23", x2: "16", y2: "23" }))
-    ), /* @__PURE__ */ React.createElement(Btn, { color: "white", dk: "#E5E5EA", tc: "#FF6B6B", small: true, onClick: () => setShowEndConfirm(true), disabled: loading }, "\u{1F3C1} Fine"), /* @__PURE__ */ React.createElement("div", { className: "mic-hint" }, listening ? "\u{1F534} Sto ascoltando..." : "Tieni premuto per parlare")), lessonDone && !showFeedback && /* @__PURE__ */ React.createElement("div", { className: "done-banner" }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 26, marginBottom: 4 } }, "\u{1F389}"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, fontWeight: 800, marginBottom: 8 } }, "Lezione completata!"), /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B35", dk: "#E55A28", onClick: resetLesson }, "\u{1F504} Nuova Lezione")), showVocab && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "vocab-overlay", onClick: () => setShowVocab(false) }), /* @__PURE__ */ React.createElement("aside", { className: "vocab-panel" }, /* @__PURE__ */ React.createElement("div", { className: "vocab-header" }, /* @__PURE__ */ React.createElement("h3", null, "\u{1F4DA} Vocaboli"), /* @__PURE__ */ React.createElement("button", { className: "vocab-close", onClick: () => setShowVocab(false) }, "\u2715")), /* @__PURE__ */ React.createElement("div", { className: "vocab-list" }, vocab.length === 0 ? /* @__PURE__ */ React.createElement("p", { className: "vocab-empty" }, "Le parole appariranno qui \u{1F4D6}") : vocab.map((w, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: `vocab-word ${w.startsWith("\u2713") ? "corrected" : "normal"}` }, w))))), showFeedback && feedback && /* @__PURE__ */ React.createElement("div", { className: "fb-overlay" }, /* @__PURE__ */ React.createElement("div", { className: "fb-card" }, /* @__PURE__ */ React.createElement("div", { className: "fb-header" }, /* @__PURE__ */ React.createElement("div", { className: "fb-emoji" }, "\u{1F3C6}"), /* @__PURE__ */ React.createElement("h2", { className: "fb-title" }, "La Tua Valutazione"), /* @__PURE__ */ React.createElement("p", { className: "fb-sub" }, level, " \u2014 ", topic)), /* @__PURE__ */ React.createElement("div", { className: "fb-rings" }, /* @__PURE__ */ React.createElement(ScoreRing, { score: feedback.grammar_score, label: "Grammatica", color: "#FF6B35" }), /* @__PURE__ */ React.createElement(ScoreRing, { score: feedback.vocabulary_score, label: "Vocabolario", color: "#7C5CFC" }), /* @__PURE__ */ React.createElement(ScoreRing, { score: feedback.fluency_score, label: "Fluidit\xE0", color: "#00D2D3" }), /* @__PURE__ */ React.createElement(ScoreRing, { score: feedback.overall_score, label: "Totale", color: "#FF6B6B" })), feedback.summary && /* @__PURE__ */ React.createElement("p", { className: "fb-summary" }, feedback.summary), ((_a = feedback.strengths) == null ? void 0 : _a.length) > 0 && /* @__PURE__ */ React.createElement("div", { className: "fb-section" }, /* @__PURE__ */ React.createElement("h4", { className: "fb-section-title strengths" }, "\u2705 Punti di Forza"), feedback.strengths.map((s, i) => /* @__PURE__ */ React.createElement("p", { key: i, className: "fb-item" }, "\u2022 ", s))), ((_b = feedback.improvements) == null ? void 0 : _b.length) > 0 && /* @__PURE__ */ React.createElement("div", { className: "fb-section", style: { marginBottom: 14 } }, /* @__PURE__ */ React.createElement("h4", { className: "fb-section-title improvements" }, "\u{1F4C8} Da Migliorare"), feedback.improvements.map((s, i) => /* @__PURE__ */ React.createElement("p", { key: i, className: "fb-item" }, "\u2022 ", s))), /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B35", dk: "#E55A28", onClick: () => setShowFeedback(false), full: true }, "Chiudi Valutazione")))));
+      listening ? /* @__PURE__ */ React.createElement("svg", { width: "24", height: "24", fill: "currentColor", viewBox: "0 0 24 24" }, /* @__PURE__ */ React.createElement("rect", { x: "6", y: "6", width: "12", height: "12", rx: "2" })) : /* @__PURE__ */ React.createElement("svg", { width: "24", height: "24", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: "2.5" }, /* @__PURE__ */ React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" }), /* @__PURE__ */ React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M19 10v2a7 7 0 01-14 0v-2" }), /* @__PURE__ */ React.createElement("line", { x1: "12", y1: "19", x2: "12", y2: "23" }), /* @__PURE__ */ React.createElement("line", { x1: "8", y1: "23", x2: "16", y2: "23" }))
+    ), /* @__PURE__ */ React.createElement(Btn, { color: "white", dk: "#E5E5EA", tc: "#FF6B6B", small: true, onClick: () => setShowEndConfirm(true), disabled: loading }, "\u{1F3C1} Fine"), /* @__PURE__ */ React.createElement("div", { className: "mic-hint" }, listening ? "\u{1F534} Tocca per inviare" : "Tocca per parlare")), lessonDone && !showFeedback && /* @__PURE__ */ React.createElement("div", { className: "done-banner" }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 26, marginBottom: 4 } }, "\u{1F389}"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, fontWeight: 800, marginBottom: 8 } }, "Lezione completata!"), /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B35", dk: "#E55A28", onClick: resetLesson }, "\u{1F504} Nuova Lezione")), showVocab && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { className: "vocab-overlay", onClick: () => setShowVocab(false) }), /* @__PURE__ */ React.createElement("aside", { className: "vocab-panel" }, /* @__PURE__ */ React.createElement("div", { className: "vocab-header" }, /* @__PURE__ */ React.createElement("h3", null, "\u{1F4DA} Vocaboli"), /* @__PURE__ */ React.createElement("button", { className: "vocab-close", onClick: () => setShowVocab(false) }, "\u2715")), /* @__PURE__ */ React.createElement("div", { className: "vocab-list" }, vocab.length === 0 ? /* @__PURE__ */ React.createElement("p", { className: "vocab-empty" }, "Le parole appariranno qui \u{1F4D6}") : vocab.map((w, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: `vocab-word ${w.startsWith("\u2713") ? "corrected" : "normal"}` }, w))))), showFeedback && feedback && /* @__PURE__ */ React.createElement("div", { className: "fb-overlay" }, /* @__PURE__ */ React.createElement("div", { className: "fb-card" }, /* @__PURE__ */ React.createElement("div", { className: "fb-header" }, /* @__PURE__ */ React.createElement("div", { className: "fb-emoji" }, "\u{1F3C6}"), /* @__PURE__ */ React.createElement("h2", { className: "fb-title" }, "La Tua Valutazione"), /* @__PURE__ */ React.createElement("p", { className: "fb-sub" }, level, " \u2014 ", effectiveTopic)), /* @__PURE__ */ React.createElement("div", { className: "fb-rings" }, /* @__PURE__ */ React.createElement(ScoreRing, { score: feedback.grammar_score, label: "Grammatica", color: "#FF6B35" }), /* @__PURE__ */ React.createElement(ScoreRing, { score: feedback.vocabulary_score, label: "Vocabolario", color: "#7C5CFC" }), /* @__PURE__ */ React.createElement(ScoreRing, { score: feedback.fluency_score, label: "Fluidit\xE0", color: "#00D2D3" }), /* @__PURE__ */ React.createElement(ScoreRing, { score: feedback.overall_score, label: "Totale", color: "#FF6B6B" })), feedback.summary && /* @__PURE__ */ React.createElement("p", { className: "fb-summary" }, feedback.summary), ((_a = feedback.strengths) == null ? void 0 : _a.length) > 0 && /* @__PURE__ */ React.createElement("div", { className: "fb-section" }, /* @__PURE__ */ React.createElement("h4", { className: "fb-section-title strengths" }, "\u2705 Punti di Forza"), feedback.strengths.map((s, i) => /* @__PURE__ */ React.createElement("p", { key: i, className: "fb-item" }, "\u2022 ", s))), ((_b = feedback.improvements) == null ? void 0 : _b.length) > 0 && /* @__PURE__ */ React.createElement("div", { className: "fb-section", style: { marginBottom: 14 } }, /* @__PURE__ */ React.createElement("h4", { className: "fb-section-title improvements" }, "\u{1F4C8} Da Migliorare"), feedback.improvements.map((s, i) => /* @__PURE__ */ React.createElement("p", { key: i, className: "fb-item" }, "\u2022 ", s))), /* @__PURE__ */ React.createElement(Btn, { color: "#FF6B35", dk: "#E55A28", onClick: () => setShowFeedback(false), full: true }, "Chiudi Valutazione")))));
   }
   ReactDOM.createRoot(document.getElementById("root")).render(
     React.createElement(React.StrictMode, null, React.createElement(App))
